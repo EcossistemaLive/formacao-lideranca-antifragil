@@ -4,254 +4,552 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formação Liderança Antifrágil — ViDi</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #C5A059;
-    --gold-light: #E2C882;
-    --bg: #05070A;
-    --bg-card: #0D1117;
-    --text: #F0EDE8;
-    --text-muted: #9A9488;
-    --border: rgba(197,160,89,0.2);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
-  body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(197,160,89,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,.04) 1px,transparent 1px);background-size:48px 48px;}
-  .deck { width: 100%; height: 100%; position: relative; }
-  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 80px; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; overflow: hidden; }
-  .slide.active { opacity: 1; pointer-events: all; }
-  .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 0.4s ease; z-index: 100; }
-  .dots { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 100; }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(197,160,89,0.3); cursor: pointer; transition: background 0.3s, transform 0.3s; }
-  .dot.active { background: var(--gold); transform: scale(1.3); }
-  .nav-btn { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(197,160,89,0.1); border: 1px solid var(--border); color: var(--gold); width: 44px; height: 44px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 100; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-  .nav-btn:hover { background: rgba(197,160,89,0.25); }
-  .nav-prev { left: 16px; }
-  .nav-next { right: 16px; }
-  .deco-line { width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 0 auto 24px; }
-  .badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 20px; margin-bottom: 28px; }
-  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-  h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 700; line-height: 1.1; text-align: center; color: var(--text); }
-  h2 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3.2vw, 44px); font-weight: 600; line-height: 1.2; text-align: center; color: var(--text); margin-bottom: 12px; }
-  .subtitle { font-size: clamp(14px, 1.5vw, 17px); color: var(--text-muted); text-align: center; max-width: 680px; line-height: 1.7; margin-top: 16px; }
-  .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; width: 100%; max-width: 880px; margin-top: 32px; }
-  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 26px 22px; position: relative; overflow: hidden; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--gold), transparent); }
-  .card-num { font-size: 30px; font-weight: 700; color: rgba(197,160,89,0.12); font-family: 'Playfair Display', serif; position: absolute; top: 14px; right: 18px; }
-  .card h3 { font-size: 15px; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
-  .card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-  .list-cards { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 780px; margin-top: 28px; }
-  .list-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px; display: flex; gap: 18px; align-items: flex-start; }
-  .list-card-icon { width: 34px; height: 34px; background: rgba(197,160,89,0.1); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--gold); font-size: 14px; }
-  .list-card-text h4 { font-size: 14px; font-weight: 600; color: var(--gold-light); margin-bottom: 3px; }
-  .list-card-text p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-  .pilares-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; width: 100%; max-width: 880px; margin-top: 32px; }
-  .pilar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 34px 28px; text-align: center; }
-  .pilar-card .pilar-icon { font-size: 34px; margin-bottom: 14px; }
-  .pilar-card h3 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: var(--gold-light); margin-bottom: 12px; }
-  .pilar-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
-  .steps { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 700px; margin-top: 28px; }
-  .step { display: flex; gap: 20px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
-  .step-num { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--gold); min-width: 38px; line-height: 1; }
-  .step-text h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .step-text p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-  .invest-box { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 16px; padding: 44px 56px; text-align: center; max-width: 580px; width: 100%; margin-top: 28px; position: relative; overflow: hidden; }
-  .invest-box::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(197,160,89,0.08), transparent 70%); pointer-events: none; }
-  .price { font-family: 'Playfair Display', serif; font-size: clamp(44px, 6vw, 68px); font-weight: 700; color: var(--gold); line-height: 1; }
-  .price span { font-size: 0.44em; vertical-align: super; }
-  .price-details { display: flex; gap: 28px; justify-content: center; margin-top: 26px; flex-wrap: wrap; }
-  .price-detail { text-align: center; }
-  .price-detail .val { font-size: 18px; font-weight: 600; color: var(--gold-light); }
-  .price-detail .lbl { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-  .price-divider { width: 1px; height: 38px; background: var(--border); align-self: center; }
-  .cta-btn { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: #05070A; font-size: 15px; font-weight: 700; padding: 17px 38px; border-radius: 4px; text-decoration: none; letter-spacing: 0.5px; margin-top: 30px; transition: background 0.2s, transform 0.2s; }
-  .cta-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .cta-subtext { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
-  .logo-mark { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-  .logo-v { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--gold); line-height: 1; }
-  .logo-vidi { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; }
-  .bg-deco { position: absolute; pointer-events: none; z-index: 0; }
-  .bg-deco-1 { top: -100px; right: -100px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(197,160,89,0.04), transparent 60%); }
-  .bg-deco-2 { bottom: -80px; left: -80px; width: 380px; height: 380px; background: radial-gradient(circle, rgba(197,160,89,0.03), transparent 60%); }
-  .slide > * { position: relative; z-index: 1; }
-  .slide > .bg-deco { z-index: 0; }
-  #s1 { text-align: center; }
-  #s1 .vidi-line { width: 1px; height: 56px; background: linear-gradient(180deg, transparent, var(--gold), transparent); margin: 22px auto; }
-  #s9 { text-align: center; }
-  #s9 .big-q { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.2vw, 40px); font-weight: 600; max-width: 700px; line-height: 1.3; color: var(--text); margin-bottom: 8px; }
-  .hint { position: fixed; bottom: 46px; right: 18px; font-size: 11px; color: rgba(154,148,136,0.35); z-index: 100; letter-spacing: 1px; }
-  @media (max-width: 700px) { .slide { padding: 36px 20px; } .cards-grid, .pilares-grid { grid-template-columns: 1fr; } .price-details { gap: 14px; } .price-divider { display: none; } }
+:root {
+  --gold:#C5A059; --gold-light:#E2C882; --gold-dim:rgba(197,160,89,.12);
+  --gold-border:rgba(197,160,89,.22); --bg:#05070A; --bg-card:#0D1117;
+  --bg-card-2:#111820; --white:rgba(255,255,255,.92); --muted:rgba(139,149,161,.85);
+  --green:#22C55E; --border:rgba(255,255,255,.07);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --fd:'Playfair Display',serif; --fb:'Inter',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb);color:var(--white);}
+
+/* Grid texture */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(197,160,89,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(197,160,89,.04) 1px,transparent 1px);
+  background-size:48px 48px;}
+
+/* Faixa ViDi — watermark global em todos os slides */
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url('imagem faixa Vidi.png') no-repeat center / cover;
+  opacity:.04;}
+
+/* ══ NAV ══ */
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:100;height:54px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 5%;background:rgba(5,7,10,.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.nav-logo{height:34px;width:auto;}
+.nav-sep{width:1px;height:16px;background:var(--border);}
+.nav-tag{font-size:.52rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;}
+.slide-counter{font-size:.68rem;color:var(--muted);letter-spacing:2px;}
+.slide-counter b{color:var(--gold);}
+
+/* ══ DECK ══ */
+.deck{position:fixed;inset:0;z-index:1;}
+
+/* ══ SLIDES ══ */
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:64px 5% 78px;
+  opacity:0;pointer-events:none;
+  transform:translateX(56px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.exit{opacity:0;transform:translateX(-56px);}
+
+/* Inner wrapper — centraliza e limita largura */
+.sl{width:100%;max-width:960px;display:flex;flex-direction:column;position:relative;}
+
+/* ══ PROGRESS BAR ══ */
+.prog{position:fixed;bottom:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  transition:width .4s var(--ease);z-index:100;box-shadow:0 0 10px rgba(197,160,89,.5);}
+
+/* ══ ARROWS ══ */
+.arrows{position:fixed;bottom:28px;right:5%;z-index:100;display:flex;gap:10px;}
+.abtn{width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--gold-border);
+  color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s var(--ease);}
+.abtn:hover{background:var(--gold-dim);border-color:var(--gold);}
+.abtn:disabled{opacity:.2;cursor:default;}
+
+/* ══ DOTS ══ */
+.dots{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:100;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border);border:1px solid var(--gold-border);
+  cursor:pointer;transition:all .2s var(--ease);}
+.dot.active{background:var(--gold);width:18px;border-radius:4px;}
+
+/* ══ HINT ══ */
+.hint{position:fixed;bottom:34px;left:5%;font-size:.54rem;color:rgba(139,149,161,.35);
+  letter-spacing:2px;text-transform:uppercase;z-index:100;}
+
+/* ══ LEFT BAR ══ */
+.lbar{position:absolute;left:-28px;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,transparent 0%,var(--gold) 20%,var(--gold) 80%,transparent 100%);}
+
+/* ══ TYPOGRAPHY ══ */
+.ey{font-size:.56rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;color:var(--gold);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.ey::before{content:'';display:block;width:22px;height:1px;background:var(--gold);flex-shrink:0;}
+.t1{font-family:var(--fd);font-size:clamp(1.9rem,3.5vw,3rem);font-weight:900;color:#fff;
+  line-height:1.08;letter-spacing:-1px;margin-bottom:10px;}
+.t1 em{color:var(--gold);font-style:normal;}
+.t2{font-family:var(--fd);font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:700;color:#fff;
+  line-height:1.15;margin-bottom:10px;}
+.t2 em{color:var(--gold);font-style:normal;}
+.sub{font-size:.87rem;color:var(--muted);max-width:640px;line-height:1.75;margin-bottom:20px;}
+
+/* ══ CARDS 2x2 ══ */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;margin-top:10px;}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;
+  position:relative;overflow:hidden;transition:border-color .3s;}
+.card:hover{border-color:var(--gold-border);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);
+  transform-origin:left;transition:transform .4s var(--ease);}
+.card:hover::before{transform:scaleX(1);}
+.card-num{position:absolute;top:12px;right:16px;font-family:var(--fd);font-size:4rem;
+  font-weight:900;color:rgba(197,160,89,.06);line-height:1;user-select:none;}
+.card-icon{font-size:1.4rem;margin-bottom:8px;display:block;}
+.card h3{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.card p{font-size:.79rem;color:var(--muted);line-height:1.65;position:relative;z-index:1;}
+
+/* ══ FOR WHO ══ */
+.who-list{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:8px;}
+.who-item{display:flex;align-items:flex-start;gap:16px;background:var(--bg-card);
+  border:1px solid var(--border);border-radius:12px;padding:18px 22px;transition:border-color .3s;}
+.who-item:hover{border-color:var(--gold-border);}
+.who-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
+.who-item h4{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:3px;}
+.who-item p{font-size:.79rem;color:var(--muted);line-height:1.6;}
+
+/* ══ PILLARS ══ */
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-top:12px;}
+.pillar{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:30px;
+  position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.pillar:hover{border-color:var(--gold-border);transform:translateY(-4px);}
+.pillar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:center;transition:transform .4s var(--ease);}
+.pillar:hover::after{transform:scaleX(1);}
+.pillar-num{font-family:var(--fd);font-size:2.8rem;font-weight:900;
+  color:rgba(197,160,89,.12);line-height:1;margin-bottom:10px;}
+.pillar h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:8px;}
+.pillar p{font-size:.82rem;color:var(--muted);line-height:1.7;}
+
+/* ══ TOOLS ══ */
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-top:12px;}
+.tool{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:26px;
+  border-top:3px solid var(--gold);transition:border-color .2s,transform .2s;}
+.tool:hover{transform:translateY(-3px);}
+.tool-icon{font-size:1.7rem;margin-bottom:12px;display:block;}
+.tool h3{font-size:.93rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.tool p{font-size:.8rem;color:var(--muted);line-height:1.7;}
+.tool .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.tag{padding:3px 10px;border-radius:20px;font-size:.6rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  background:var(--gold-dim);color:var(--gold-light);border:1px solid var(--gold-border);}
+
+/* ══ STRATEGIES ══ */
+.strat-list{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:10px;position:relative;}
+.strat-list::before{content:'';position:absolute;left:23px;top:12px;bottom:12px;width:2px;
+  background:linear-gradient(to bottom,var(--gold-border),var(--gold),var(--gold-border));}
+.strat-item{display:grid;grid-template-columns:46px 1fr;gap:18px;align-items:center;
+  padding:16px 16px 16px 0;border-bottom:1px solid var(--border);position:relative;z-index:1;
+  transition:padding-left .2s;}
+.strat-item:last-child{border-bottom:none;}
+.strat-item:hover{padding-left:8px;}
+.s-num{width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:2px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;font-family:var(--fd);
+  font-size:.85rem;font-weight:700;color:var(--gold);flex-shrink:0;transition:all .2s;}
+.strat-item:hover .s-num{background:rgba(197,160,89,.2);border-color:var(--gold);}
+.strat-item h4{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:3px;}
+.strat-item p{font-size:.79rem;color:var(--muted);line-height:1.6;}
+
+/* ══ INVEST ══ */
+.invest-box{background:var(--bg-card);border:1px solid var(--gold-border);border-radius:20px;
+  padding:40px;width:100%;position:relative;overflow:hidden;}
+.invest-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));}
+.invest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:28px;}
+.i-item{background:var(--bg-card-2);padding:26px 24px;text-align:center;}
+.i-label{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);
+  font-weight:700;margin-bottom:8px;}
+.i-val{font-family:var(--fd);font-size:2.1rem;font-weight:900;
+  background:linear-gradient(135deg,#fff 0%,var(--gold) 60%,var(--gold-light) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.i-desc{font-size:.72rem;color:var(--muted);margin-top:4px;line-height:1.4;}
+.invest-obs{font-size:.77rem;color:rgba(139,149,161,.5);font-style:italic;}
+
+/* ══ CTA SLIDE ══ */
+.slide-cta{
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(197,160,89,.07) 0%,transparent 70%),var(--bg);
+}
+.sl-cta{align-items:center;text-align:center;}
+.cta-big{font-family:var(--fd);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:900;color:#fff;
+  line-height:1.1;margin-bottom:16px;max-width:640px;}
+.cta-big em{color:var(--gold);font-style:normal;}
+.cta-sub{font-size:.9rem;color:var(--muted);max-width:480px;line-height:1.75;margin-bottom:32px;}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;
+  background:var(--gold);color:var(--bg);font-weight:700;font-size:.88rem;
+  text-transform:uppercase;letter-spacing:1px;text-decoration:none;border-radius:4px;
+  box-shadow:0 4px 24px rgba(197,160,89,.35);transition:all .3s var(--ease);}
+.cta-btn:hover{background:var(--gold-light);transform:translateY(-3px);}
+.cta-detail{margin-top:24px;font-size:.7rem;color:rgba(139,149,161,.4);letter-spacing:1px;}
+
+/* ══ COVER ══ */
+.slide-cover{
+  align-items:flex-start;
+  background:
+    radial-gradient(ellipse 80% 80% at 30% 50%, rgba(5,7,10,.98) 0%, rgba(5,7,10,.82) 55%, rgba(5,7,10,.35) 100%),
+    linear-gradient(to right, rgba(5,7,10,.99) 45%, rgba(5,7,10,.5) 100%),
+    url('imagem de fundo cavaleiro.png') no-repeat right center / auto 100%,
+    var(--bg);
+}
+.sl-cover{max-width:680px;}
+.cover-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:50px;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  font-size:.56rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;color:var(--gold);
+  margin-bottom:24px;}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;}
+.cover-title{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;
+  color:#fff;line-height:1.03;letter-spacing:-2px;margin-bottom:8px;}
+.cover-title em{color:var(--gold);font-style:normal;}
+.cover-line{width:56px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  margin:20px 0;border-radius:2px;}
+.cover-sub{font-size:.92rem;color:var(--muted);max-width:520px;line-height:1.8;}
+.cover-meta{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap;}
+.cm{text-align:left;}
+.cm-v{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--gold-light);}
+.cm-l{font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+
+/* ══ COVER SUBTEXT ══ */
+.cta-subtext{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:8px;
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);
+}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+@media(max-width:768px){
+  .slide{padding:60px 5% 80px;}
+  .grid2,.pillars,.tools{grid-template-columns:1fr;}
+  .invest-grid{grid-template-columns:1fr;}
+  .cover-title{font-size:2.4rem;}
+  .t1{font-size:1.7rem;}
+  .lbar{left:-16px;}
+}
 </style>
 </head>
 <body>
-<div class="progress-bar" id="progressBar"></div>
-<div class="deck" id="deck">
 
-  <!-- S1: COVER -->
-  <div class="slide active" id="s1">
-    <div class="bg-deco bg-deco-1"></div>
-    <div class="bg-deco bg-deco-2"></div>
-    <div class="logo-mark"><div class="logo-v">V</div><div class="logo-vidi">ViDi</div></div>
-    <div class="badge">Próxima Turma · 27/05</div>
-    <h1>Formação de Liderança<br><em style="color:var(--gold)">Antifrágil</em></h1>
-    <div class="vidi-line"></div>
-    <p class="subtitle">A formação que líderes e empresários precisam para prosperar diante dos desafios mais intensos. Ferramentas práticas para liderar com confiança, eficiência e propósito.</p>
+<!-- NAV -->
+<div class="nav-bar">
+  <div class="nav-left">
+    <svg class="nav-logo" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <g><path fill="#fff" d="M687.78,512.56l-7.66-6.29c-1.04-.85-1.64-2.13-1.64-3.47v-129.66c0-1.35.6-2.62,1.64-3.47l7.66-6.29v-1.72h-35.97v1.72l7.67,6.29c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3h0v1.72h35.97v-1.72h0Z"/>
+      <path fill="#fff" d="M566.9,361.64h-51.73v1.72l7.67,6.3c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3v1.72h51.94c46.39,0,76.39-36.23,76.39-83.09,0-43.43-25.53-69.55-76.6-69.55ZM560.18,511.5h-19.79v-147.07h17.45c51.07,0,66.82,25.49,66.82,72.14,0,42.14-11.92,74.93-64.48,74.93Z"/>
+      <path fill="#fff" d="M462.81,363.36l7.66,6.29c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3v1.72h35.97v-1.72l-7.66-6.29c-1.04-.85-1.64-2.13-1.64-3.47v-129.66c0-1.35.6-2.62,1.64-3.47l7.66-6.29v-1.72h-35.97v1.72Z"/>
+      <path fill="#fff" d="M422.77,363.36l7.67,6.29c1.04.85,1.64,2.13,1.64,3.47v118.58l-63.17-122.97,6.55-5.38v-1.72h-36.71v1.72l14.43,9.98,69.38,135.05c1.65,3.21,4.76,5.35,8.28,5.8v.09s1.25,0,1.25,0h11.77v-1.72l-6.74-11.91v-127.52c0-1.35.6-2.62,1.64-3.47l7.67-6.29v-1.72h-23.64v1.72Z"/></g>
+      <path fill="#C5A059" d="M316.93,428.48c0,.35-.42.52-.67.28-19.51-19.13-70.62,7.17-70.62,70.69v43.45c-70.06-14.24-124.85-79.37-124.85-157.56,0-27.12,6.38-52.66,17.63-75.05l81.99,36.55,15.7,6.99,1.23,4.95c1.1,4.38,6.22,6.35,9.96,3.79l.84-.56,8.15-5.55-23.66-10.54-94.67-42.21c-13.39-6.29-24.33-16.79-25.73-46.6l150.2,64.76c15.54,6.71,22.35,22.58,18.45,39.06,21.44,14.92,35.59,39.58,36.07,67.56Z"/>
+    </svg>
+    <div class="nav-sep"></div>
+    <span class="nav-tag">Formação Liderança Antifrágil</span>
   </div>
-
-  <!-- S2: O QUE VOCÊ VAI DESENVOLVER -->
-  <div class="slide" id="s2">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">O que você vai desenvolver</p>
-    <div class="deco-line"></div>
-    <h2>Capacidades que transformam crises em vantagem competitiva</h2>
-    <div class="cards-grid">
-      <div class="card"><span class="card-num">01</span><h3>Liderar em Crises</h3><p>Capacidade de liderar em momentos de crise e adversidade com clareza e autoridade.</p></div>
-      <div class="card"><span class="card-num">02</span><h3>Equipe Forte</h3><p>Fortalecer sua equipe para prosperar mesmo diante dos maiores desafios do mercado.</p></div>
-      <div class="card"><span class="card-num">03</span><h3>Decisões Rápidas</h3><p>Tomar decisões rápidas e eficazes sob pressão, sem perder visão estratégica.</p></div>
-      <div class="card"><span class="card-num">04</span><h3>Mentalidade Antifrágil</h3><p>Transformar toda crise em oportunidade de crescimento e vantagem competitiva.</p></div>
-    </div>
-  </div>
-
-  <!-- S3: PARA QUEM -->
-  <div class="slide" id="s3">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">Para quem é</p>
-    <div class="deco-line"></div>
-    <h2>Formação ideal para quem</h2>
-    <div class="list-cards">
-      <div class="list-card"><div class="list-card-icon">◆</div><div class="list-card-text"><h4>Líderes em busca de aprimoramento</h4><p>Quer melhorar suas habilidades de liderança com método e consistência.</p></div></div>
-      <div class="list-card"><div class="list-card-icon">◆</div><div class="list-card-text"><h4>Equipes engajadas</h4><p>Deseja desenvolver uma equipe engajada, inovadora e orientada a resultados.</p></div></div>
-      <div class="list-card"><div class="list-card-icon">◆</div><div class="list-card-text"><h4>Mentalidade forte</h4><p>Quer fortalecer sua mentalidade para lidar com crises e promover mudanças no time.</p></div></div>
-      <div class="list-card"><div class="list-card-icon">◆</div><div class="list-card-text"><h4>Atuação Estratégica</h4><p>Busca se dedicar a uma atuação mais estratégica e menos operacional.</p></div></div>
-    </div>
-  </div>
-
-  <!-- S4: PILARES -->
-  <div class="slide" id="s4">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">Pilares do programa</p>
-    <div class="deco-line"></div>
-    <h2>Pilares da Liderança Antifrágil</h2>
-    <div class="pilares-grid">
-      <div class="pilar-card"><div class="pilar-icon">🎯</div><h3>Liderança de Verdade</h3><p>Aprenda os princípios e estratégias com verdadeiro propósito e intencionalidade para se tornar um líder autêntico e de impacto.</p></div>
-      <div class="pilar-card"><div class="pilar-icon">🧠</div><h3>Comportamento e Antifragilidade</h3><p>Entenda perfis comportamentais, identifique o temperamento e as camadas da personalidade de seus liderados.</p></div>
-    </div>
-  </div>
-
-  <!-- S5: FERRAMENTAS -->
-  <div class="slide" id="s5">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">Ferramentas e desenvolvimento</p>
-    <div class="deco-line"></div>
-    <h2>Ferramentas que transformam a prática</h2>
-    <div class="pilares-grid">
-      <div class="pilar-card"><div class="pilar-icon">🛠️</div><h3>Ferramentas Psicológicas</h3><p>Aprimore seu desempenho com ferramentas baseadas em PNL, psicologia positiva, comunicação assertiva e Princípio de Oz.</p></div>
-      <div class="pilar-card"><div class="pilar-icon">🚀</div><h3>Desenvolvendo Líderes</h3><p>Aprenda a identificar necessidades, direcionar o desenvolvimento e promover motivação sustentável no seu time.</p></div>
-    </div>
-  </div>
-
-  <!-- S6: ESTRATÉGIAS DE ADAPTAÇÃO -->
-  <div class="slide" id="s6">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">Estratégias</p>
-    <div class="deco-line"></div>
-    <h2>Estratégias de Adaptação</h2>
-    <div class="steps">
-      <div class="step"><div class="step-num">01</div><div class="step-text"><h4>Mensuração</h4><p>Ferramentas para mensuração e tomada de decisão com base em dados reais do seu contexto.</p></div></div>
-      <div class="step"><div class="step-num">02</div><div class="step-text"><h4>Estratégias por Cenário</h4><p>Preparação de estratégias específicas para cada cenário de crise ou mudança organizacional.</p></div></div>
-      <div class="step"><div class="step-num">03</div><div class="step-text"><h4>Recuperação e Crescimento</h4><p>Metodologia para recuperação acelerada e crescimento contínuo após adversidades.</p></div></div>
-    </div>
-  </div>
-
-  <!-- S7: PLANEJAMENTO ANTIFRÁGIL -->
-  <div class="slide" id="s7">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">Planejamento</p>
-    <div class="deco-line"></div>
-    <h2>Planejamento Antifrágil</h2>
-    <div class="cards-grid">
-      <div class="card"><span class="card-num">01</span><h3>Diagnóstico</h3><p>Domine estratégias para diagnosticar o desenvolvimento atual do time com precisão.</p></div>
-      <div class="card"><span class="card-num">02</span><h3>Planejamento</h3><p>Planejar o desenvolvimento do time de forma estruturada e orientada a resultados.</p></div>
-      <div class="card"><span class="card-num">03</span><h3>Mensuração</h3><p>Mensurar o desenvolvimento com indicadores claros e acompanhamento contínuo.</p></div>
-      <div class="card"><span class="card-num">04</span><h3>Cultura Antifrágil</h3><p>Criando uma cultura antifrágil e de desenvolvimento contínuo que se fortalece com os desafios.</p></div>
-    </div>
-  </div>
-
-  <!-- S8: INVESTIMENTO -->
-  <div class="slide" id="s8">
-    <div class="bg-deco bg-deco-1"></div>
-    <p class="section-label">Investimento</p>
-    <div class="deco-line"></div>
-    <h2>Investimento e Detalhes</h2>
-    <div class="invest-box">
-      <div class="price"><span>R$</span>3.898</div>
-      <div class="price-details">
-        <div class="price-detail"><div class="val">5</div><div class="lbl">Encontros</div></div>
-        <div class="price-divider"></div>
-        <div class="price-detail"><div class="val">Presencial</div><div class="lbl">Formato</div></div>
-        <div class="price-divider"></div>
-        <div class="price-detail"><div class="val">19h–22h</div><div class="lbl">Horário</div></div>
-        <div class="price-divider"></div>
-        <div class="price-detail"><div class="val">27/05</div><div class="lbl">Próxima Turma</div></div>
-      </div>
-    </div>
-    <p class="cta-subtext" style="margin-top:18px;">Verifique condições especiais disponíveis</p>
-  </div>
-
-  <!-- S9: CTA -->
-  <div class="slide" id="s9">
-    <div class="bg-deco bg-deco-1"></div>
-    <div class="bg-deco bg-deco-2"></div>
-    <div class="logo-mark"><div class="logo-v">V</div><div class="logo-vidi">ViDi</div></div>
-    <p class="section-label">Próximo passo</p>
-    <p class="big-q">Pronto para liderar com<br><span style="color:var(--gold)">antifragilidade e propósito?</span></p>
-    <p class="subtitle">Vagas limitadas para a próxima turma. Fale agora com nossa equipe e garanta sua participação.</p>
-    <a class="cta-btn" href="https://wa.me/556292686018" target="_blank">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L0 24l6.335-1.56A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.792 9.792 0 01-4.988-1.365l-.358-.213-3.758.925.99-3.65-.234-.374A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-      Falar com a ViDi
-    </a>
-    <p class="cta-subtext">Turma a partir de 27/05 · 5 encontros · Sala de Reuniões · Metropolitan Mall · Goiânia</p>
-  </div>
-
+  <div class="slide-counter">Slide <b id="cur">1</b> / <b id="tot">9</b></div>
 </div>
 
-<button class="nav-btn nav-prev" id="btnPrev" onclick="changeSlide(-1)">‹</button>
-<button class="nav-btn nav-next" id="btnNext" onclick="changeSlide(1)">›</button>
+<!-- DECK -->
+<div class="deck" id="deck">
+
+<!-- 1. CAPA -->
+<div class="slide slide-cover active" data-i="0">
+  <div class="sl sl-cover">
+    <div class="cover-badge"><span class="pulse"></span>Próxima turma: 27/05 · Presencial</div>
+    <div class="cover-title">Liderança<br><em>Antifrágil</em></div>
+    <div class="cover-line"></div>
+    <div class="cover-sub">A formação que líderes e empresários precisam para prosperar diante das situações mais intensas. Com enfoque prático, ferramentas reais e método aplicado.</div>
+    <div class="cover-meta">
+      <div class="cm"><div class="cm-v">5</div><div class="cm-l">Encontros</div></div>
+      <div class="cm"><div class="cm-v">19h–22h</div><div class="cm-l">Horário</div></div>
+      <div class="cm"><div class="cm-v">R$3.898</div><div class="cm-l">Investimento</div></div>
+      <div class="cm"><div class="cm-v">Presencial</div><div class="cm-l">Formato</div></div>
+    </div>
+    <p class="cta-subtext">Turma a partir de 27/05 · 5 encontros · Sala de Reuniões · Metropolitan Mall · Goiânia</p>
+  </div>
+</div>
+
+<!-- 2. O QUE VOCÊ VAI DESENVOLVER -->
+<div class="slide" data-i="1">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Resultados da Formação</div>
+    <div class="t1">O que você vai<br><em>desenvolver.</em></div>
+    <div class="sub">Quatro resultados concretos ao longo dos 5 encontros — não teoria, aplicação direta no seu contexto de liderança.</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-num">01</div>
+        <span class="card-icon">⚡</span>
+        <h3>Liderar em Crises</h3>
+        <p>Capacidade real de liderar em momentos de crise e adversidade. Não reatividade — método estruturado para manter a equipe coesa quando o cenário piora.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <span class="card-icon">🏆</span>
+        <h3>Equipe Forte</h3>
+        <p>Fortalecer sua equipe para prosperar mesmo diante de situações críticas. Um time que não paralisa quando você não está — que avança.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <span class="card-icon">🎯</span>
+        <h3>Decisões Rápidas e Eficazes</h3>
+        <p>Aprender a tomar decisões com velocidade e precisão. Eliminar os vieses que travam o raciocínio e a cultura do "vamos ver".</p>
+      </div>
+      <div class="card">
+        <div class="card-num">04</div>
+        <span class="card-icon">🔥</span>
+        <h3>Resposta Antifrágil</h3>
+        <p>Converter toda crise em oportunidade — não como slogan, mas como sistema instalado de resposta a adversidades.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. PARA QUEM -->
+<div class="slide" data-i="2">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Para Quem é Esta Formação</div>
+    <div class="t1">Esta formação é ideal<br><em>para você se…</em></div>
+    <div class="who-list">
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Você busca aprimorar suas habilidades de liderança</h4>
+          <p>Líderes que já entregam resultados e querem elevar o padrão — não começar do zero, mas ir para o próximo nível.</p>
+        </div>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Você quer desenvolver uma equipe engajada e inovadora</h4>
+          <p>Chega de equipe que só executa quando você cobra. O objetivo é um time que pensa, propõe e resolve.</p>
+        </div>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Você quer fortalecer sua capacidade de lidar com crises</h4>
+          <p>Promover as mudanças necessárias no time — e em você — para que a adversidade vire combustível, não paralisia.</p>
+        </div>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Você quer sair da operação e atuar estrategicamente</h4>
+          <p>Menos urgência, mais visão. Menos apagar incêndio, mais arquitetar o crescimento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. PILARES -->
+<div class="slide" data-i="3">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Os Pilares</div>
+    <div class="t1">A base que sustenta<br><em>tudo o que vem depois.</em></div>
+    <div class="sub">Dois pilares fundamentais que estruturam toda a formação — do autoconhecimento ao conhecimento do time.</div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h3>Liderança de Verdade</h3>
+        <p>Aprenda os princípios e estratégias que constroem liderança com verdadeiro propósito e intencionalidade. Não liderança de cargo — liderança que as pessoas seguem porque querem.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h3>Comportamento e Antifragilidade</h3>
+        <p>Entenda perfis comportamentais, identifique o temperamento e as camadas da personalidade de seus liderados. Liderar pessoas diferentes com o método certo para cada uma.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. FERRAMENTAS -->
+<div class="slide" data-i="4">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Ferramentas e Desenvolvimento</div>
+    <div class="t1">Método aplicado,<br><em>não teoria acumulada.</em></div>
+    <div class="sub">Cada ferramenta foi escolhida por impacto prático — não para enriquecer o currículo, mas para mudar o dia a dia de quem lidera.</div>
+    <div class="tools">
+      <div class="tool">
+        <span class="tool-icon">🧠</span>
+        <h3>Ferramentas Psicológicas</h3>
+        <p>Aprimore seu desempenho e o do time com ferramentas baseadas em evidências. Comunicação que conecta, não só informa.</p>
+        <div class="tags">
+          <span class="tag">PNL</span>
+          <span class="tag">Psicologia Positiva</span>
+          <span class="tag">Comunicação Assertiva</span>
+          <span class="tag">Princípio de Oz</span>
+        </div>
+      </div>
+      <div class="tool">
+        <span class="tool-icon">📈</span>
+        <h3>Desenvolvendo Líderes</h3>
+        <p>Aprenda a identificar necessidades individuais, direcionar o desenvolvimento com precisão e promover motivação sustentável — não motivação de palco.</p>
+        <div class="tags">
+          <span class="tag">Diagnóstico de Equipe</span>
+          <span class="tag">Plano de Desenvolvimento</span>
+          <span class="tag">Motivação Sustentável</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. ESTRATÉGIAS DE ADAPTAÇÃO -->
+<div class="slide" data-i="5">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Estratégias de Adaptação</div>
+    <div class="t1">Como agir quando<br><em>o cenário muda.</em></div>
+    <div class="sub">A antifragilidade não é resiliência — não é só suportar o impacto. É sair mais forte. Para isso, você precisa de um sistema, não de força de vontade.</div>
+    <div class="strat-list">
+      <div class="strat-item">
+        <div class="s-num">01</div>
+        <div>
+          <h4>Mensuração</h4>
+          <p>Ferramentas para mensurar o que realmente importa e tomar decisões com dados, não intuição não treinada.</p>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="s-num">02</div>
+        <div>
+          <h4>Estratégias por Cenário</h4>
+          <p>Preparação de respostas estratégicas para diferentes cenários — antes da crise chegar, não durante.</p>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="s-num">03</div>
+        <div>
+          <h4>Recuperação e Crescimento</h4>
+          <p>Como converter a queda em aprendizado estruturado e o aprendizado em crescimento acelerado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. PLANEJAMENTO ANTIFRÁGIL -->
+<div class="slide" data-i="6">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Planejamento Antifrágil</div>
+    <div class="t1">Do diagnóstico à<br><em>cultura instalada.</em></div>
+    <div class="sub">O objetivo final não é um líder mais preparado — é uma organização antifrágil. Isso exige um ciclo completo de quatro etapas.</div>
+    <div class="strat-list">
+      <div class="strat-item">
+        <div class="s-num">01</div>
+        <div>
+          <h4>Diagnóstico</h4>
+          <p>Domine estratégias para diagnosticar com precisão onde está o desenvolvimento do time — e onde estão os gargalos reais.</p>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="s-num">02</div>
+        <div>
+          <h4>Planejamento</h4>
+          <p>Planejar o desenvolvimento do time com método — não com achismo. Metas individuais e coletivas que fazem sentido.</p>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="s-num">03</div>
+        <div>
+          <h4>Mensuração</h4>
+          <p>Mensurar o desenvolvimento de forma contínua. O que não é medido, não é gerenciado — e não evolui.</p>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="s-num">04</div>
+        <div>
+          <h4>Cultura Antifrágil</h4>
+          <p>Criar uma cultura de desenvolvimento contínuo que funciona independente da sua presença constante.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. INVESTIMENTO -->
+<div class="slide" data-i="7">
+  <div class="sl">
+    <div class="lbar"></div>
+    <div class="ey">Investimento e Detalhes</div>
+    <div class="t1">Tudo o que você<br><em>precisa saber.</em></div>
+    <div class="invest-box">
+      <div class="invest-grid">
+        <div class="i-item">
+          <div class="i-label">💰 Investimento</div>
+          <div class="i-val">R$3.898</div>
+          <div class="i-desc">Verifique condições especiais</div>
+        </div>
+        <div class="i-item">
+          <div class="i-label">📅 Encontros</div>
+          <div class="i-val">5</div>
+          <div class="i-desc">Encontros presenciais</div>
+        </div>
+        <div class="i-item">
+          <div class="i-label">🕖 Horário</div>
+          <div class="i-val">19h–22h</div>
+          <div class="i-desc">3 horas por encontro</div>
+        </div>
+      </div>
+      <p class="invest-obs">Próxima turma: a partir de 27/05 · Sala de Reuniões · Metropolitan Mall · Goiânia. Condições especiais para grupos e indicações.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 9. CTA -->
+<div class="slide slide-cta" data-i="8">
+  <div class="sl sl-cta">
+    <div class="ey" style="justify-content:center;">Próximo Passo</div>
+    <div class="cta-big">Pronto para liderar<br>de forma <em>antifrágil?</em></div>
+    <div class="cta-sub">Entre em contato agora. Verificamos as datas da próxima turma e as condições disponíveis para você.</div>
+    <a href="https://wa.me/556292686018" class="cta-btn" target="_blank">
+      Falar pelo WhatsApp
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="cta-detail">+55 62 9268-6018 · @vidi.ceo · vidiceo.com.br</div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="prog" id="prog"></div>
 <div class="dots" id="dots"></div>
-<div class="hint">F · tela cheia &nbsp;|&nbsp; ← → navegar</div>
+<div class="arrows">
+  <button class="abtn" id="pb" onclick="nav(-1)" disabled>←</button>
+  <button class="abtn" id="nb" onclick="nav(1)">→</button>
+</div>
+<div class="hint">← → para navegar · F para tela cheia</div>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
-  const dotsEl = document.getElementById('dots');
-  const bar = document.getElementById('progressBar');
-  let cur = 0;
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goTo(i);
-    dotsEl.appendChild(d);
-  });
-  function goTo(n) {
-    slides[cur].classList.remove('active');
-    dotsEl.children[cur].classList.remove('active');
-    cur = Math.max(0, Math.min(n, slides.length - 1));
-    slides[cur].classList.add('active');
-    dotsEl.children[cur].classList.add('active');
-    bar.style.width = ((cur + 1) / slides.length * 100) + '%';
-    document.getElementById('btnPrev').style.opacity = cur === 0 ? '0.3' : '1';
-    document.getElementById('btnNext').style.opacity = cur === slides.length - 1 ? '0.3' : '1';
-  }
-  function changeSlide(dir) { goTo(cur + dir); }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
-    if (e.key === 'f' || e.key === 'F') document.documentElement.requestFullscreen?.();
-  });
-  let tx = 0;
-  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
-  document.addEventListener('touchend', e => { const dx = tx - e.changedTouches[0].clientX; if (Math.abs(dx) > 50) changeSlide(dx > 0 ? 1 : -1); });
-  goTo(0);
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let cur=0;
+document.getElementById('tot').textContent=total;
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>go(i);dotsEl.appendChild(d);});
+function go(n){if(n<0||n>=total)return;slides[cur].classList.remove('active');slides[cur].classList.add('exit');const prev=cur;setTimeout(()=>slides[prev].classList.remove('exit'),600);cur=n;slides[cur].classList.add('active');upd();}
+function nav(d){go(cur+d);}
+function upd(){document.getElementById('cur').textContent=cur+1;document.getElementById('pb').disabled=cur===0;document.getElementById('nb').disabled=cur===total-1;document.getElementById('prog').style.width=((cur+1)/total*100)+'%';document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nav(1);}if(e.key==='ArrowLeft'){e.preventDefault();nav(-1);}if(e.key==='f'||e.key==='F'){!document.fullscreenElement?document.documentElement.requestFullscreen():document.exitFullscreen();}});
+let sx=0;document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)nav(dx<0?1:-1);},{passive:true});
+upd();
 </script>
 </body>
 </html>
