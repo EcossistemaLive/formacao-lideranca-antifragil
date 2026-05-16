@@ -1,737 +1,1633 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formação Liderança Antifrágil — ViDi</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ══ LIGHT THEME (default) ══ */
-:root {
-  --gold:#9A7B35; --gold-light:#C5A059; --gold-dim:rgba(154,123,53,.10);
-  --gold-border:rgba(154,123,53,.28); --bg:#F7F3EC; --bg-card:#FFFFFF;
-  --bg-card-2:#F0EBE1; --white:rgba(25,20,15,.92); --heading:#1A1208;
-  --muted:rgba(100,85,65,.75); --green:#16A34A; --border:rgba(150,130,100,.18);
-  --nav-bg:rgba(247,243,236,.97); --nav-border:rgba(150,130,100,.22);
-  --hint-color:rgba(100,85,65,.35); --cta-detail:rgba(100,85,65,.5);
-  --card-num:rgba(154,123,53,.07);
-  --cover-blend:multiply;
-  /* RGB tokens for rgba() composition */
-  --bg-rgb:247,243,236; --gold-rgb:154,123,53;
-  --ease:cubic-bezier(.16,1,.3,1);
-  --fd:'Playfair Display',serif; --fb:'Inter',sans-serif;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formação Liderança Antifrágil — ViDi</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ══ LIGHT THEME (default) ══ */
+    :root {
+      --gold: #9A7B35;
+      --gold-light: #C5A059;
+      --gold-dim: rgba(154, 123, 53, .10);
+      --gold-border: rgba(154, 123, 53, .28);
+      --bg: #F7F3EC;
+      --bg-card: #FFFFFF;
+      --bg-card-2: #F0EBE1;
+      --white: rgba(25, 20, 15, .92);
+      --heading: #1A1208;
+      --muted: rgba(100, 85, 65, .75);
+      --green: #16A34A;
+      --border: rgba(150, 130, 100, .18);
+      --nav-bg: rgba(247, 243, 236, .97);
+      --nav-border: rgba(150, 130, 100, .22);
+      --hint-color: rgba(100, 85, 65, .35);
+      --cta-detail: rgba(100, 85, 65, .5);
+      --card-num: rgba(154, 123, 53, .07);
+      --cover-blend: multiply;
+      /* RGB tokens for rgba() composition */
+      --bg-rgb: 247, 243, 236;
+      --gold-rgb: 154, 123, 53;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --fd: 'Playfair Display', serif;
+      --fb: 'Inter', sans-serif;
+    }
 
-/* ══ DARK THEME ══ */
-[data-theme="dark"] {
-  --gold:#C5A059; --gold-light:#E2C882; --gold-dim:rgba(197,160,89,.12);
-  --gold-border:rgba(197,160,89,.22); --bg:#05070A; --bg-card:#0D1117;
-  --bg-card-2:#111820; --white:rgba(255,255,255,.92); --heading:#FFFFFF;
-  --muted:rgba(139,149,161,.85); --green:#22C55E; --border:rgba(255,255,255,.07);
-  --nav-bg:rgba(5,7,10,.96); --nav-border:rgba(255,255,255,.07);
-  --hint-color:rgba(139,149,161,.35); --cta-detail:rgba(139,149,161,.4);
-  --card-num:rgba(197,160,89,.06);
-  --cover-blend:normal;
-  --bg-rgb:5,7,10; --gold-rgb:197,160,89;
-}
+    /* ══ DARK THEME ══ */
+    [data-theme="dark"] {
+      --gold: #C5A059;
+      --gold-light: #E2C882;
+      --gold-dim: rgba(197, 160, 89, .12);
+      --gold-border: rgba(197, 160, 89, .22);
+      --bg: #05070A;
+      --bg-card: #0D1117;
+      --bg-card-2: #111820;
+      --white: rgba(255, 255, 255, .92);
+      --heading: #FFFFFF;
+      --muted: rgba(139, 149, 161, .85);
+      --green: #22C55E;
+      --border: rgba(255, 255, 255, .07);
+      --nav-bg: rgba(5, 7, 10, .96);
+      --nav-border: rgba(255, 255, 255, .07);
+      --hint-color: rgba(139, 149, 161, .35);
+      --cta-detail: rgba(139, 149, 161, .4);
+      --card-num: rgba(197, 160, 89, .06);
+      --cover-blend: normal;
+      --bg-rgb: 5, 7, 10;
+      --gold-rgb: 197, 160, 89;
+    }
 
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb);color:var(--white);transition:background .4s,color .4s;}
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* Grid texture */
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(var(--gold-rgb),.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(var(--gold-rgb),.04) 1px,transparent 1px);
-  background-size:48px 48px;}
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: var(--bg);
+      font-family: var(--fb);
+      color: var(--white);
+      transition: background .4s, color .4s;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
 
-/* Faixa ViDi — watermark global */
-body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url('imagem faixa Vidi.png') no-repeat center center / contain;
-  opacity:.04;}
+    /* Grid texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(var(--gold-rgb), .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--gold-rgb), .04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
 
-/* ══ NAV ══ */
-.nav-bar{position:fixed;top:0;left:0;right:0;z-index:100;height:54px;display:flex;align-items:center;
-  justify-content:space-between;padding:0 5%;background:var(--nav-bg);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--nav-border);transition:background .4s,border-color .4s;}
-.nav-left{display:flex;align-items:center;gap:12px;}
-.nav-logo{height:34px;width:auto;color:var(--heading);transition:color .4s;}
-.nav-sep{width:1px;height:16px;background:var(--nav-border);}
-.nav-tag{font-size:.52rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;}
-.nav-right{display:flex;align-items:center;gap:14px;}
-.slide-counter{font-size:.68rem;color:var(--muted);letter-spacing:2px;}
-.slide-counter b{color:var(--gold);}
+    /* Faixa ViDi — watermark global */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: url('imagem faixa Vidi.png') no-repeat center center / contain;
+      opacity: .04;
+    }
 
-/* Theme toggle */
-.theme-btn{width:32px;height:32px;border-radius:50%;background:var(--bg-card);
-  border:1px solid var(--gold-border);color:var(--muted);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:.85rem;
-  transition:all .2s var(--ease);padding:0;line-height:1;}
-.theme-btn:hover{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+    /* ══ NAV ══ */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      transition: background .4s, border-color .4s;
+    }
 
-/* ══ DECK ══ */
-.deck{position:fixed;inset:0;z-index:1;}
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* ══ SLIDES ══ */
-.slide{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
-  padding:64px 5% 78px;
-  opacity:0;pointer-events:none;
-  transform:translateX(56px);
-  transition:opacity .5s var(--ease),transform .5s var(--ease);
-}
-.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
-.slide.exit{opacity:0;transform:translateX(-56px);}
+    .nav-logo {
+      height: 34px;
+      width: auto;
+      color: var(--heading);
+      transition: color .4s;
+    }
 
-/* Inner wrapper */
-.sl{width:100%;max-width:960px;display:flex;flex-direction:column;position:relative;}
+    .nav-sep {
+      width: 1px;
+      height: 16px;
+      background: var(--nav-border);
+    }
 
-/* ══ PROGRESS BAR ══ */
-.prog{position:fixed;bottom:0;left:0;height:3px;
-  background:linear-gradient(90deg,var(--gold),var(--gold-light));
-  transition:width .4s var(--ease);z-index:100;box-shadow:0 0 10px rgba(var(--gold-rgb),.4);}
+    .nav-tag {
+      font-size: .52rem;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
 
-/* ══ ARROWS ══ */
-.arrows{position:fixed;bottom:28px;right:5%;z-index:100;display:flex;gap:10px;}
-.abtn{width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--gold-border);
-  color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:1rem;transition:all .2s var(--ease);}
-.abtn:hover{background:var(--gold-dim);border-color:var(--gold);}
-.abtn:disabled{opacity:.2;cursor:default;}
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-/* ══ DOTS ══ */
-.dots{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:100;}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--border);border:1px solid var(--gold-border);
-  cursor:pointer;transition:all .2s var(--ease);}
-.dot.active{background:var(--gold);width:18px;border-radius:4px;}
+    .slide-counter {
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
 
-/* ══ HINT ══ */
-.hint{position:fixed;bottom:34px;left:5%;font-size:.54rem;color:var(--hint-color);
-  letter-spacing:2px;text-transform:uppercase;z-index:100;}
+    .slide-counter b {
+      color: var(--gold);
+    }
 
-/* ══ LEFT BAR ══ */
-.lbar{position:absolute;left:-28px;top:0;bottom:0;width:3px;
-  background:linear-gradient(to bottom,transparent 0%,var(--gold) 20%,var(--gold) 80%,transparent 100%);}
+    /* Theme toggle */
+    .theme-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      transition: all .2s var(--ease);
+      padding: 0;
+      line-height: 1;
+    }
 
-/* ══ TYPOGRAPHY ══ */
-.ey{font-size:.56rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;color:var(--gold);
-  margin-bottom:14px;display:flex;align-items:center;gap:10px;}
-.ey::before{content:'';display:block;width:22px;height:1px;background:var(--gold);flex-shrink:0;}
-.t1{font-family:var(--fd);font-size:clamp(1.9rem,3.5vw,3rem);font-weight:900;color:var(--heading);
-  line-height:1.08;letter-spacing:-1px;margin-bottom:10px;transition:color .4s;}
-.t1 em{color:var(--gold);font-style:normal;}
-.t2{font-family:var(--fd);font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:700;color:var(--heading);
-  line-height:1.15;margin-bottom:10px;transition:color .4s;}
-.t2 em{color:var(--gold);font-style:normal;}
-.sub{font-size:.87rem;color:var(--muted);max-width:640px;line-height:1.75;margin-bottom:20px;}
+    .theme-btn:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
 
-/* ══ CARDS 2x2 ══ */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;margin-top:10px;}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;
-  position:relative;overflow:hidden;transition:border-color .3s,background .4s;}
-.card:hover{border-color:var(--gold-border);}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);
-  transform-origin:left;transition:transform .4s var(--ease);}
-.card:hover::before{transform:scaleX(1);}
-.card-num{position:absolute;top:12px;right:16px;font-family:var(--fd);font-size:4rem;
-  font-weight:900;color:var(--card-num);line-height:1;user-select:none;}
-.card-icon{font-size:1.4rem;margin-bottom:8px;display:block;}
-.card h3{font-size:.9rem;font-weight:700;color:var(--heading);margin-bottom:6px;transition:color .4s;}
-.card p{font-size:.79rem;color:var(--muted);line-height:1.65;position:relative;z-index:1;}
+    /* ══ DECK ══ */
+    .deck {
+      position: relative;
+      z-index: 1;
+    }
 
-/* ══ FOR WHO ══ */
-.who-list{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:8px;}
-.who-item{display:flex;align-items:flex-start;gap:16px;background:var(--bg-card);
-  border:1px solid var(--border);border-radius:12px;padding:18px 22px;transition:border-color .3s,background .4s;}
-.who-item:hover{border-color:var(--gold-border);}
-.who-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
-.who-item h4{font-size:.88rem;font-weight:700;color:var(--heading);margin-bottom:3px;transition:color .4s;}
-.who-item p{font-size:.79rem;color:var(--muted);line-height:1.6;}
+    /* ══ SLIDES ══ */
+    .slide {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 64px 5% 78px;
+      scroll-snap-align: start;
+    }
 
-/* ══ PILLARS ══ */
-.pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-top:12px;}
-.pillar{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:30px;
-  position:relative;overflow:hidden;transition:border-color .3s,transform .3s,background .4s;}
-.pillar:hover{border-color:var(--gold-border);transform:translateY(-4px);}
-.pillar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  transform:scaleX(0);transform-origin:center;transition:transform .4s var(--ease);}
-.pillar:hover::after{transform:scaleX(1);}
-.pillar-num{font-family:var(--fd);font-size:2.8rem;font-weight:900;
-  color:var(--card-num);line-height:1;margin-bottom:10px;}
-.pillar h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:8px;}
-.pillar p{font-size:.82rem;color:var(--muted);line-height:1.7;}
+    /* Inner wrapper */
+    .sl {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
-/* ══ TOOLS ══ */
-.tools{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-top:12px;}
-.tool{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:26px;
-  border-top:3px solid var(--gold);transition:border-color .2s,transform .2s,background .4s;}
-.tool:hover{transform:translateY(-3px);}
-.tool-icon{font-size:1.7rem;margin-bottom:12px;display:block;}
-.tool h3{font-size:.93rem;font-weight:700;color:var(--heading);margin-bottom:8px;transition:color .4s;}
-.tool p{font-size:.8rem;color:var(--muted);line-height:1.7;}
-.tool .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
-.tag{padding:3px 10px;border-radius:20px;font-size:.6rem;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-  background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+    /* ══ PROGRESS BAR ══ */
+    .prog {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width .4s var(--ease);
+      z-index: 100;
+      box-shadow: 0 0 10px rgba(var(--gold-rgb), .4);
+    }
 
-/* ══ STRATEGIES ══ */
-.strat-list{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:10px;position:relative;}
-.strat-list::before{content:'';position:absolute;left:23px;top:12px;bottom:12px;width:2px;
-  background:linear-gradient(to bottom,var(--gold-border),var(--gold),var(--gold-border));}
-.strat-item{display:grid;grid-template-columns:46px 1fr;gap:18px;align-items:center;
-  padding:16px 16px 16px 0;border-bottom:1px solid var(--border);position:relative;z-index:1;
-  transition:padding-left .2s;}
-.strat-item:last-child{border-bottom:none;}
-.strat-item:hover{padding-left:8px;}
-.s-num{width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:2px solid var(--gold-border);
-  display:flex;align-items:center;justify-content:center;font-family:var(--fd);
-  font-size:.85rem;font-weight:700;color:var(--gold);flex-shrink:0;transition:all .2s;}
-.strat-item:hover .s-num{background:rgba(var(--gold-rgb),.15);border-color:var(--gold);}
-.strat-item h4{font-size:.88rem;font-weight:700;color:var(--heading);margin-bottom:3px;transition:color .4s;}
-.strat-item p{font-size:.79rem;color:var(--muted);line-height:1.6;}
+    /* ══ ARROWS ══ */
+    .arrows {
+      position: fixed;
+      bottom: 28px;
+      right: 5%;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
 
-/* ══ INVEST ══ */
-.invest-box{background:var(--bg-card);border:1px solid var(--gold-border);border-radius:20px;
-  padding:40px;width:100%;position:relative;overflow:hidden;transition:background .4s;}
-.invest-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));}
-.invest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:28px;}
-.i-item{background:var(--bg-card-2);padding:26px 24px;text-align:center;transition:background .4s;}
-.i-label{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);
-  font-weight:700;margin-bottom:8px;}
-.i-val{font-family:var(--fd);font-size:2.1rem;font-weight:900;
-  background:linear-gradient(135deg,var(--heading) 0%,var(--gold) 60%,var(--gold-light) 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.i-desc{font-size:.72rem;color:var(--muted);margin-top:4px;line-height:1.4;}
-.invest-obs{font-size:.77rem;color:var(--muted);font-style:italic;opacity:.7;}
+    .abtn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all .2s var(--ease);
+    }
 
-/* ══ FACILITADOR ══ */
-.facilitator{display:grid;grid-template-columns:240px 1fr;gap:32px;width:100%;margin-top:14px;align-items:start;}
-.facil-photo-side{display:flex;flex-direction:column;align-items:center;gap:14px;}
-.facil-ring{width:176px;height:176px;border-radius:50%;border:3px solid var(--gold);padding:4px;
-  background:var(--bg-card);box-shadow:0 0 40px rgba(var(--gold-rgb),.18);overflow:hidden;
-  flex-shrink:0;transition:background .4s;}
-.facil-img{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%;display:block;}
-.facil-id{text-align:center;}
-.facil-name{font-family:var(--fd);font-size:1.25rem;font-weight:700;color:var(--heading);
-  margin-bottom:4px;transition:color .4s;}
-.facil-role{font-size:.68rem;color:var(--gold);font-weight:600;letter-spacing:.5px;margin-bottom:2px;}
-.facil-org{font-size:.65rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.facil-bio-side{display:flex;flex-direction:column;gap:14px;}
-.facil-bio{font-size:.84rem;color:var(--muted);line-height:1.85;}
-.facil-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.facil-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;
-  padding:14px 10px;text-align:center;display:flex;flex-direction:column;gap:3px;
-  transition:background .4s,border-color .3s;}
-.facil-stat:hover{border-color:var(--gold-border);}
-.fs-num{font-family:var(--fd);font-size:1.55rem;font-weight:900;color:var(--gold);}
-.fs-label{font-size:.58rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;line-height:1.3;}
-.facil-tags{display:flex;flex-wrap:wrap;gap:7px;}
+    .abtn:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+    }
 
-/* ══ CTA SLIDE ══ */
-.slide-cta{
-  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(var(--gold-rgb),.07) 0%,transparent 70%),var(--bg);
-}
-.sl-cta{align-items:center;text-align:center;}
-.cta-big{font-family:var(--fd);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:900;color:var(--heading);
-  line-height:1.1;margin-bottom:16px;max-width:640px;transition:color .4s;}
-.cta-big em{color:var(--gold);font-style:normal;}
-.cta-sub{font-size:.9rem;color:var(--muted);max-width:480px;line-height:1.75;margin-bottom:32px;}
-.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;
-  background:var(--gold);color:#1A1208;font-weight:700;font-size:.88rem;
-  text-transform:uppercase;letter-spacing:1px;text-decoration:none;border-radius:4px;
-  box-shadow:0 4px 24px rgba(var(--gold-rgb),.30);transition:all .3s var(--ease);}
-.cta-btn:hover{background:var(--gold-light);transform:translateY(-3px);}
-.cta-detail{margin-top:24px;font-size:.7rem;color:var(--cta-detail);letter-spacing:1px;}
+    .abtn:disabled {
+      opacity: .2;
+      cursor: default;
+    }
 
-/* ══ COVER ══ */
-.slide-cover{
-  align-items:flex-start;
-  background:var(--bg);
-  position:relative;
-}
+    /* ══ DOTS ══ */
+    .dots {
+      position: fixed;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 100;
+    }
 
-/* Imagem do cavaleiro — preenche o lado direito com fade via CSS mask */
-.slide-cover::before{
-  content:'';position:absolute;right:0;top:0;width:68%;height:100%;z-index:0;
-  background:url('imagem de fundo cavaleiro.png') no-repeat right center / cover;
-  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.55) 22%,rgba(0,0,0,.9) 50%,black 75%);
-  mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.55) 22%,rgba(0,0,0,.9) 50%,black 75%);
-}
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 1px solid var(--gold-border);
+      cursor: pointer;
+      transition: all .2s var(--ease);
+    }
 
-/* Gradiente sobre a imagem para garantir legibilidade do texto */
-.slide-cover::after{
-  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(to right,var(--bg) 36%,rgba(var(--bg-rgb),.6) 56%,rgba(var(--bg-rgb),0) 74%);
-}
+    .dot.active {
+      background: var(--gold);
+      width: 18px;
+      border-radius: 4px;
+    }
 
-.sl-cover{max-width:680px;position:relative;z-index:2;}
-.cover-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:50px;
-  background:var(--gold-dim);border:1px solid var(--gold-border);
-  font-size:.56rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;color:var(--gold);
-  margin-bottom:24px;}
-.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);
-  box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;}
-.cover-title{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;
-  color:var(--heading);line-height:1.03;letter-spacing:-2px;margin-bottom:8px;transition:color .4s;}
-.cover-title em{color:var(--gold);font-style:normal;}
-.cover-line{width:56px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));
-  margin:20px 0;border-radius:2px;}
-.cover-sub{font-size:.92rem;color:var(--muted);max-width:520px;line-height:1.8;}
-.cover-meta{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap;}
-.cm{text-align:left;}
-.cm-v{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--gold);}
-.cm-l{font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
-.cta-subtext{display:inline-flex;align-items:center;gap:8px;margin-top:8px;
-  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+    /* ══ HINT ══ */
+    .hint {
+      position: fixed;
+      bottom: 34px;
+      left: 5%;
+      font-size: .54rem;
+      color: var(--hint-color);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 100;
+    }
 
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    /* ══ LEFT BAR ══ */
+    .lbar {
+      position: absolute;
+      left: -28px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+    }
 
-@media(max-width:768px){
-  .slide{padding:60px 5% 80px;}
-  .grid2,.pillars,.tools{grid-template-columns:1fr;}
-  .invest-grid{grid-template-columns:1fr;}
-  .facilitator{grid-template-columns:1fr;}
-  .facil-photo-side{flex-direction:row;align-items:center;gap:16px;}
-  .facil-id{text-align:left;}
-  .facil-ring{width:100px;height:100px;}
-  .cover-title{font-size:2.4rem;}
-  .t1{font-size:1.7rem;}
-  .lbar{left:-16px;}
-}
-</style>
+    /* ══ TYPOGRAPHY ══ */
+    .ey {
+      font-size: .56rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ey::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .t1 {
+      font-family: var(--fd);
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--heading);
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+      transition: color .4s;
+    }
+
+    .t1 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .t2 {
+      font-family: var(--fd);
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      color: var(--heading);
+      line-height: 1.15;
+      margin-bottom: 10px;
+      transition: color .4s;
+    }
+
+    .t2 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .sub {
+      font-size: .87rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    /* ══ CARDS 2x2 ══ */
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, background .4s;
+    }
+
+    .card:hover {
+      border-color: var(--gold-border);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s var(--ease);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card-num {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-family: var(--fd);
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--card-num);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 6px;
+      transition: color .4s;
+    }
+
+    .card p {
+      font-size: .79rem;
+      color: var(--muted);
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══ FOR WHO ══ */
+    .who-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .who-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      transition: border-color .3s, background .4s;
+    }
+
+    .who-item:hover {
+      border-color: var(--gold-border);
+    }
+
+    .who-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .who-item h4 {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 3px;
+      transition: color .4s;
+    }
+
+    .who-item p {
+      font-size: .79rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ══ PILLARS ══ */
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .pillar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, background .4s;
+    }
+
+    .pillar:hover {
+      border-color: var(--gold-border);
+      transform: translateY(-4px);
+    }
+
+    .pillar::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform .4s var(--ease);
+    }
+
+    .pillar:hover::after {
+      transform: scaleX(1);
+    }
+
+    .pillar-num {
+      font-family: var(--fd);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--card-num);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .pillar h3 {
+      font-family: var(--fd);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .pillar p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ══ TOOLS ══ */
+    .tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .tool {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      border-top: 3px solid var(--gold);
+      transition: border-color .2s, transform .2s, background .4s;
+    }
+
+    .tool:hover {
+      transform: translateY(-3px);
+    }
+
+    .tool-icon {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .tool h3 {
+      font-size: .93rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 8px;
+      transition: color .4s;
+    }
+
+    .tool p {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .tool .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--gold-dim);
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+    }
+
+    /* ══ STRATEGIES ══ */
+    .strat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .strat-list::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold-border), var(--gold), var(--gold-border));
+    }
+
+    .strat-item {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 16px 16px 16px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      transition: padding-left .2s;
+    }
+
+    .strat-item:last-child {
+      border-bottom: none;
+    }
+
+    .strat-item:hover {
+      padding-left: 8px;
+    }
+
+    .s-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fd);
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+
+    .strat-item:hover .s-num {
+      background: rgba(var(--gold-rgb), .15);
+      border-color: var(--gold);
+    }
+
+    .strat-item h4 {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 3px;
+      transition: color .4s;
+    }
+
+    .strat-item p {
+      font-size: .79rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ══ INVEST ══ */
+    .invest-box {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: background .4s;
+    }
+
+    .invest-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    }
+
+    .invest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .i-item {
+      background: var(--bg-card-2);
+      padding: 26px 24px;
+      text-align: center;
+      transition: background .4s;
+    }
+
+    .i-label {
+      font-size: .54rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .i-val {
+      font-family: var(--fd);
+      font-size: 2.1rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--heading) 0%, var(--gold) 60%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .i-desc {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .invest-obs {
+      font-size: .77rem;
+      color: var(--muted);
+      font-style: italic;
+      opacity: .7;
+    }
+
+    /* ══ FACILITADOR ══ */
+    .facilitator {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      width: 100%;
+      margin-top: 14px;
+      align-items: start;
+    }
+
+    .facil-photo-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .facil-ring {
+      width: 176px;
+      height: 176px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      padding: 4px;
+      background: var(--bg-card);
+      box-shadow: 0 0 40px rgba(var(--gold-rgb), .18);
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: background .4s;
+    }
+
+    .facil-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .facil-id {
+      text-align: center;
+    }
+
+    .facil-name {
+      font-family: var(--fd);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 4px;
+      transition: color .4s;
+    }
+
+    .facil-role {
+      font-size: .68rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: .5px;
+      margin-bottom: 2px;
+    }
+
+    .facil-org {
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .facil-bio-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .facil-bio {
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .facil-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .facil-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: background .4s, border-color .3s;
+    }
+
+    .facil-stat:hover {
+      border-color: var(--gold-border);
+    }
+
+    .fs-num {
+      font-family: var(--fd);
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .fs-label {
+      font-size: .58rem;
+      color: var(--muted);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .facil-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    /* ══ CTA SLIDE ══ */
+    .slide-cta {
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(var(--gold-rgb), .07) 0%, transparent 70%), var(--bg);
+    }
+
+    .sl-cta {
+      align-items: center;
+      text-align: center;
+    }
+
+    .cta-big {
+      font-family: var(--fd);
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-weight: 900;
+      color: var(--heading);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 640px;
+      transition: color .4s;
+    }
+
+    .cta-big em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .cta-sub {
+      font-size: .9rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: var(--gold);
+      color: #1A1208;
+      font-weight: 700;
+      font-size: .88rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(var(--gold-rgb), .30);
+      transition: all .3s var(--ease);
+    }
+
+    .cta-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-3px);
+    }
+
+    .cta-detail {
+      margin-top: 24px;
+      font-size: .7rem;
+      color: var(--cta-detail);
+      letter-spacing: 1px;
+    }
+
+    /* ══ COVER ══ */
+    .slide-cover {
+      align-items: flex-start;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* Imagem do cavaleiro — âncora no bottom-right, cavalo completo visível */
+    .slide-cover::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 62%;
+      height: 100%;
+      z-index: 0;
+      background: url('imagem de fundo cavaleiro.png') no-repeat right bottom / auto 100%;
+      mix-blend-mode: var(--cover-blend);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .45) 20%, rgba(0, 0, 0, .88) 48%, black 70%);
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .45) 20%, rgba(0, 0, 0, .88) 48%, black 70%);
+    }
+
+    /* Gradiente sobre a imagem para garantir legibilidade do texto */
+    .slide-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(to right, var(--bg) 30%, rgba(var(--bg-rgb), .55) 48%, rgba(var(--bg-rgb), 0) 65%);
+    }
+
+    .sl-cover {
+      max-width: 680px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 50px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      font-size: .56rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    .cover-title {
+      font-family: var(--fd);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      color: var(--heading);
+      line-height: 1.03;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+      transition: color .4s;
+    }
+
+    .cover-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .cover-line {
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      margin: 20px 0;
+      border-radius: 2px;
+    }
+
+    .cover-sub {
+      font-size: .92rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .cm {
+      text-align: left;
+    }
+
+    .cm-v {
+      font-family: var(--fd);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .cm-l {
+      font-size: .52rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .cta-subtext {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: .6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    @media(max-width:768px) {
+      .slide {
+        padding: 60px 5% 80px;
+      }
+
+      .grid2,
+      .pillars,
+      .tools {
+        grid-template-columns: 1fr;
+      }
+
+      .invest-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .facilitator {
+        grid-template-columns: 1fr;
+      }
+
+      .facil-photo-side {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .facil-id {
+        text-align: left;
+      }
+
+      .facil-ring {
+        width: 100px;
+        height: 100px;
+      }
+
+      .cover-title {
+        font-size: 2.4rem;
+      }
+
+      .t1 {
+        font-size: 1.7rem;
+      }
+
+      .lbar {
+        left: -16px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<div class="nav-bar">
-  <div class="nav-left">
-    <svg class="nav-logo" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-      <g fill="currentColor">
-        <path d="M687.78,512.56l-7.66-6.29c-1.04-.85-1.64-2.13-1.64-3.47v-129.66c0-1.35.6-2.62,1.64-3.47l7.66-6.29v-1.72h-35.97v1.72l7.67,6.29c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3h0v1.72h35.97v-1.72h0Z"/>
-        <path d="M566.9,361.64h-51.73v1.72l7.67,6.3c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3v1.72h51.94c46.39,0,76.39-36.23,76.39-83.09,0-43.43-25.53-69.55-76.6-69.55ZM560.18,511.5h-19.79v-147.07h17.45c51.07,0,66.82,25.49,66.82,72.14,0,42.14-11.92,74.93-64.48,74.93Z"/>
-        <path d="M462.81,363.36l7.66,6.29c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3v1.72h35.97v-1.72l-7.66-6.29c-1.04-.85-1.64-2.13-1.64-3.47v-129.66c0-1.35.6-2.62,1.64-3.47l7.66-6.29v-1.72h-35.97v1.72Z"/>
-        <path d="M422.77,363.36l7.67,6.29c1.04.85,1.64,2.13,1.64,3.47v118.58l-63.17-122.97,6.55-5.38v-1.72h-36.71v1.72l14.43,9.98,69.38,135.05c1.65,3.21,4.76,5.35,8.28,5.8v.09s1.25,0,1.25,0h11.77v-1.72l-6.74-11.91v-127.52c0-1.35.6-2.62,1.64-3.47l7.67-6.29v-1.72h-23.64v1.72Z"/>
-      </g>
-      <path fill="#C5A059" d="M316.93,428.48c0,.35-.42.52-.67.28-19.51-19.13-70.62,7.17-70.62,70.69v43.45c-70.06-14.24-124.85-79.37-124.85-157.56,0-27.12,6.38-52.66,17.63-75.05l81.99,36.55,15.7,6.99,1.23,4.95c1.1,4.38,6.22,6.35,9.96,3.79l.84-.56,8.15-5.55-23.66-10.54-94.67-42.21c-13.39-6.29-24.33-16.79-25.73-46.6l150.2,64.76c15.54,6.71,22.35,22.58,18.45,39.06,21.44,14.92,35.59,39.58,36.07,67.56Z"/>
-    </svg>
-    <div class="nav-sep"></div>
-    <span class="nav-tag">Formação Liderança Antifrágil</span>
-  </div>
-  <div class="nav-right">
-    <div class="slide-counter">Slide <b id="cur">1</b> / <b id="tot">10</b></div>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema claro/escuro">🌙</button>
-  </div>
-</div>
-
-<!-- DECK -->
-<div class="deck" id="deck">
-
-<!-- 1. CAPA -->
-<div class="slide slide-cover active" data-i="0">
-  <div class="sl sl-cover">
-    <div class="cover-badge"><span class="pulse"></span>Próxima turma: 27/05 · Presencial</div>
-    <div class="cover-title">Liderança<br><em>Antifrágil</em></div>
-    <div class="cover-line"></div>
-    <div class="cover-sub">A formação que líderes e empresários precisam para prosperar diante das situações mais intensas. Com enfoque prático, ferramentas reais e método aplicado.</div>
-    <div class="cover-meta">
-      <div class="cm"><div class="cm-v">5</div><div class="cm-l">Encontros</div></div>
-      <div class="cm"><div class="cm-v">19h–22h</div><div class="cm-l">Horário</div></div>
-      <div class="cm"><div class="cm-v">R$3.898</div><div class="cm-l">Investimento</div></div>
-      <div class="cm"><div class="cm-v">Presencial</div><div class="cm-l">Formato</div></div>
+  <!-- NAV -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <svg class="nav-logo" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+        <g fill="currentColor">
+          <path
+            d="M687.78,512.56l-7.66-6.29c-1.04-.85-1.64-2.13-1.64-3.47v-129.66c0-1.35.6-2.62,1.64-3.47l7.66-6.29v-1.72h-35.97v1.72l7.67,6.29c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3h0v1.72h35.97v-1.72h0Z" />
+          <path
+            d="M566.9,361.64h-51.73v1.72l7.67,6.3c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3v1.72h51.94c46.39,0,76.39-36.23,76.39-83.09,0-43.43-25.53-69.55-76.6-69.55ZM560.18,511.5h-19.79v-147.07h17.45c51.07,0,66.82,25.49,66.82,72.14,0,42.14-11.92,74.93-64.48,74.93Z" />
+          <path
+            d="M462.81,363.36l7.66,6.29c1.04.85,1.64,2.13,1.64,3.47v129.66c0,1.35-.6,2.62-1.64,3.47l-7.67,6.3v1.72h35.97v-1.72l-7.66-6.29c-1.04-.85-1.64-2.13-1.64-3.47v-129.66c0-1.35.6-2.62,1.64-3.47l7.66-6.29v-1.72h-35.97v1.72Z" />
+          <path
+            d="M422.77,363.36l7.67,6.29c1.04.85,1.64,2.13,1.64,3.47v118.58l-63.17-122.97,6.55-5.38v-1.72h-36.71v1.72l14.43,9.98,69.38,135.05c1.65,3.21,4.76,5.35,8.28,5.8v.09s1.25,0,1.25,0h11.77v-1.72l-6.74-11.91v-127.52c0-1.35.6-2.62,1.64-3.47l7.67-6.29v-1.72h-23.64v1.72Z" />
+        </g>
+        <path fill="#C5A059"
+          d="M316.93,428.48c0,.35-.42.52-.67.28-19.51-19.13-70.62,7.17-70.62,70.69v43.45c-70.06-14.24-124.85-79.37-124.85-157.56,0-27.12,6.38-52.66,17.63-75.05l81.99,36.55,15.7,6.99,1.23,4.95c1.1,4.38,6.22,6.35,9.96,3.79l.84-.56,8.15-5.55-23.66-10.54-94.67-42.21c-13.39-6.29-24.33-16.79-25.73-46.6l150.2,64.76c15.54,6.71,22.35,22.58,18.45,39.06,21.44,14.92,35.59,39.58,36.07,67.56Z" />
+      </svg>
+      <div class="nav-sep"></div>
+      <span class="nav-tag">Formação Liderança Antifrágil</span>
     </div>
-    <p class="cta-subtext">Turma a partir de 27/05 · 5 encontros · Sala de Reuniões · Metropolitan Mall · Goiânia</p>
-  </div>
-</div>
-
-<!-- 2. O QUE VOCÊ VAI DESENVOLVER -->
-<div class="slide" data-i="1">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Resultados da Formação</div>
-    <div class="t1">O que você vai<br><em>desenvolver.</em></div>
-    <div class="sub">Quatro resultados concretos ao longo dos 5 encontros — não teoria, aplicação direta no seu contexto de liderança.</div>
-    <div class="grid2">
-      <div class="card">
-        <div class="card-num">01</div>
-        <span class="card-icon">⚡</span>
-        <h3>Liderar em Crises</h3>
-        <p>Capacidade real de liderar em momentos de crise e adversidade. Não reatividade — método estruturado para manter a equipe coesa quando o cenário piora.</p>
-      </div>
-      <div class="card">
-        <div class="card-num">02</div>
-        <span class="card-icon">🏆</span>
-        <h3>Equipe Forte</h3>
-        <p>Fortalecer sua equipe para prosperar mesmo diante de situações críticas. Um time que não paralisa quando você não está — que avança.</p>
-      </div>
-      <div class="card">
-        <div class="card-num">03</div>
-        <span class="card-icon">🎯</span>
-        <h3>Decisões Rápidas e Eficazes</h3>
-        <p>Aprender a tomar decisões com velocidade e precisão. Eliminar os vieses que travam o raciocínio e a cultura do "vamos ver".</p>
-      </div>
-      <div class="card">
-        <div class="card-num">04</div>
-        <span class="card-icon">🔥</span>
-        <h3>Resposta Antifrágil</h3>
-        <p>Converter toda crise em oportunidade — não como slogan, mas como sistema instalado de resposta a adversidades.</p>
-      </div>
+    <div class="nav-right">
+      <div class="slide-counter">Slide <b id="cur">1</b> / <b id="tot">10</b></div>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema claro/escuro">🌙</button>
     </div>
   </div>
-</div>
 
-<!-- 3. PARA QUEM -->
-<div class="slide" data-i="2">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Para Quem é Esta Formação</div>
-    <div class="t1">Esta formação é ideal<br><em>para você se…</em></div>
-    <div class="who-list">
-      <div class="who-item">
-        <div class="who-dot"></div>
-        <div>
-          <h4>Você busca aprimorar suas habilidades de liderança</h4>
-          <p>Líderes que já entregam resultados e querem elevar o padrão — não começar do zero, mas ir para o próximo nível.</p>
-        </div>
-      </div>
-      <div class="who-item">
-        <div class="who-dot"></div>
-        <div>
-          <h4>Você quer desenvolver uma equipe engajada e inovadora</h4>
-          <p>Chega de equipe que só executa quando você cobra. O objetivo é um time que pensa, propõe e resolve.</p>
-        </div>
-      </div>
-      <div class="who-item">
-        <div class="who-dot"></div>
-        <div>
-          <h4>Você quer fortalecer sua capacidade de lidar com crises</h4>
-          <p>Promover as mudanças necessárias no time — e em você — para que a adversidade vire combustível, não paralisia.</p>
-        </div>
-      </div>
-      <div class="who-item">
-        <div class="who-dot"></div>
-        <div>
-          <h4>Você quer sair da operação e atuar estrategicamente</h4>
-          <p>Menos urgência, mais visão. Menos apagar incêndio, mais arquitetar o crescimento.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <!-- DECK -->
+  <div class="deck" id="deck">
 
-<!-- 4. PILARES -->
-<div class="slide" data-i="3">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Os Pilares</div>
-    <div class="t1">A base que sustenta<br><em>tudo o que vem depois.</em></div>
-    <div class="sub">Dois pilares fundamentais que estruturam toda a formação — do autoconhecimento ao conhecimento do time.</div>
-    <div class="pillars">
-      <div class="pillar">
-        <div class="pillar-num">01</div>
-        <h3>Liderança de Verdade</h3>
-        <p>Aprenda os princípios e estratégias que constroem liderança com verdadeiro propósito e intencionalidade. Não liderança de cargo — liderança que as pessoas seguem porque querem.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">02</div>
-        <h3>Comportamento e Antifragilidade</h3>
-        <p>Entenda perfis comportamentais, identifique o temperamento e as camadas da personalidade de seus liderados. Liderar pessoas diferentes com o método certo para cada uma.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 5. FERRAMENTAS -->
-<div class="slide" data-i="4">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Ferramentas e Desenvolvimento</div>
-    <div class="t1">Método aplicado,<br><em>não teoria acumulada.</em></div>
-    <div class="sub">Cada ferramenta foi escolhida por impacto prático — não para enriquecer o currículo, mas para mudar o dia a dia de quem lidera.</div>
-    <div class="tools">
-      <div class="tool">
-        <span class="tool-icon">🧠</span>
-        <h3>Ferramentas Psicológicas</h3>
-        <p>Aprimore seu desempenho e o do time com ferramentas baseadas em evidências. Comunicação que conecta, não só informa.</p>
-        <div class="tags">
-          <span class="tag">PNL</span>
-          <span class="tag">Psicologia Positiva</span>
-          <span class="tag">Comunicação Assertiva</span>
-          <span class="tag">Princípio de Oz</span>
+    <!-- 1. CAPA -->
+    <div class="slide slide-cover active" data-i="0">
+      <div class="sl sl-cover">
+        <div class="cover-badge"><span class="pulse"></span>Próxima turma: 27/05 · Presencial</div>
+        <div class="cover-title">Liderança<br><em>Antifrágil</em></div>
+        <div class="cover-line"></div>
+        <div class="cover-sub">A formação que líderes e empresários precisam para prosperar diante das situações mais
+          intensas. Com enfoque prático, ferramentas reais e método aplicado.</div>
+        <div class="cover-meta">
+          <div class="cm">
+            <div class="cm-v">5</div>
+            <div class="cm-l">Encontros</div>
+          </div>
+          <div class="cm">
+            <div class="cm-v">19h–22h</div>
+            <div class="cm-l">Horário</div>
+          </div>
+          <div class="cm">
+            <div class="cm-v">R$3.898</div>
+            <div class="cm-l">Investimento</div>
+          </div>
+          <div class="cm">
+            <div class="cm-v">Presencial</div>
+            <div class="cm-l">Formato</div>
+          </div>
         </div>
-      </div>
-      <div class="tool">
-        <span class="tool-icon">📈</span>
-        <h3>Desenvolvendo Líderes</h3>
-        <p>Aprenda a identificar necessidades individuais, direcionar o desenvolvimento com precisão e promover motivação sustentável — não motivação de palco.</p>
-        <div class="tags">
-          <span class="tag">Diagnóstico de Equipe</span>
-          <span class="tag">Plano de Desenvolvimento</span>
-          <span class="tag">Motivação Sustentável</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 6. ESTRATÉGIAS DE ADAPTAÇÃO -->
-<div class="slide" data-i="5">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Estratégias de Adaptação</div>
-    <div class="t1">Como agir quando<br><em>o cenário muda.</em></div>
-    <div class="sub">A antifragilidade não é resiliência — não é só suportar o impacto. É sair mais forte. Para isso, você precisa de um sistema, não de força de vontade.</div>
-    <div class="strat-list">
-      <div class="strat-item">
-        <div class="s-num">01</div>
-        <div>
-          <h4>Mensuração</h4>
-          <p>Ferramentas para mensurar o que realmente importa e tomar decisões com dados, não intuição não treinada.</p>
-        </div>
-      </div>
-      <div class="strat-item">
-        <div class="s-num">02</div>
-        <div>
-          <h4>Estratégias por Cenário</h4>
-          <p>Preparação de respostas estratégicas para diferentes cenários — antes da crise chegar, não durante.</p>
-        </div>
-      </div>
-      <div class="strat-item">
-        <div class="s-num">03</div>
-        <div>
-          <h4>Recuperação e Crescimento</h4>
-          <p>Como converter a queda em aprendizado estruturado e o aprendizado em crescimento acelerado.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 7. PLANEJAMENTO ANTIFRÁGIL -->
-<div class="slide" data-i="6">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Planejamento Antifrágil</div>
-    <div class="t1">Do diagnóstico à<br><em>cultura instalada.</em></div>
-    <div class="sub">O objetivo final não é um líder mais preparado — é uma organização antifrágil. Isso exige um ciclo completo de quatro etapas.</div>
-    <div class="strat-list">
-      <div class="strat-item">
-        <div class="s-num">01</div>
-        <div>
-          <h4>Diagnóstico</h4>
-          <p>Domine estratégias para diagnosticar com precisão onde está o desenvolvimento do time — e onde estão os gargalos reais.</p>
-        </div>
-      </div>
-      <div class="strat-item">
-        <div class="s-num">02</div>
-        <div>
-          <h4>Planejamento</h4>
-          <p>Planejar o desenvolvimento do time com método — não com achismo. Metas individuais e coletivas que fazem sentido.</p>
-        </div>
-      </div>
-      <div class="strat-item">
-        <div class="s-num">03</div>
-        <div>
-          <h4>Mensuração</h4>
-          <p>Mensurar o desenvolvimento de forma contínua. O que não é medido, não é gerenciado — e não evolui.</p>
-        </div>
-      </div>
-      <div class="strat-item">
-        <div class="s-num">04</div>
-        <div>
-          <h4>Cultura Antifrágil</h4>
-          <p>Criar uma cultura de desenvolvimento contínuo que funciona independente da sua presença constante.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 8. FACILITADOR — LUIZ PORTAL -->
-<div class="slide" data-i="7">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Sobre o Facilitador</div>
-    <div class="t1">Quem conduz<br><em>essa jornada.</em></div>
-    <div class="facilitator">
-      <div class="facil-photo-side">
-        <div class="facil-ring">
-          <img src="luiz perfil.jpeg" alt="Luiz Portal" class="facil-img">
-        </div>
-        <div class="facil-id">
-          <div class="facil-name">Luiz Portal</div>
-          <div class="facil-role">Especialista em Liderança Antifrágil</div>
-          <div class="facil-org">Cofundador · ViDi</div>
-        </div>
-      </div>
-      <div class="facil-bio-side">
-        <p class="facil-bio">
-          Luiz Portal é especialista em desenvolvimento de lideranças e comportamento humano, com mais de uma década formando líderes em empresas de médio e grande porte no Brasil Central. Cofundador da ViDi, aplica metodologias baseadas em evidências — unindo análise comportamental, psicologia positiva e antifragilidade — para transformar a forma como líderes constroem equipes e respondem à adversidade. Sua missão é elevar o padrão da liderança no Brasil Central, construindo organizações que não apenas sobrevivem às crises, mas saem delas mais fortes.
+        <p class="cta-subtext">Turma a partir de 27/05 · 5 encontros · Sala de Reuniões · Metropolitan Mall · Goiânia
         </p>
-        <div class="facil-stats">
-          <div class="facil-stat">
-            <span class="fs-num">+10</span>
-            <span class="fs-label">Anos de experiência</span>
+      </div>
+    </div>
+
+    <!-- 2. O QUE VOCÊ VAI DESENVOLVER -->
+    <div class="slide" data-i="1">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Resultados da Formação</div>
+        <div class="t1">O que você vai<br><em>desenvolver.</em></div>
+        <div class="sub">Quatro resultados concretos ao longo dos 5 encontros — não teoria, aplicação direta no seu
+          contexto de liderança.</div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-num">01</div>
+            <span class="card-icon">⚡</span>
+            <h3>Liderar em Crises</h3>
+            <p>Capacidade real de liderar em momentos de crise e adversidade. Não reatividade — método estruturado para
+              manter a equipe coesa quando o cenário piora.</p>
           </div>
-          <div class="facil-stat">
-            <span class="fs-num">+200</span>
-            <span class="fs-label">Líderes formados</span>
+          <div class="card">
+            <div class="card-num">02</div>
+            <span class="card-icon">🏆</span>
+            <h3>Equipe Forte</h3>
+            <p>Fortalecer sua equipe para prosperar mesmo diante de situações críticas. Um time que não paralisa quando
+              você não está — que avança.</p>
           </div>
-          <div class="facil-stat">
-            <span class="fs-num">+50</span>
-            <span class="fs-label">Empresas atendidas</span>
+          <div class="card">
+            <div class="card-num">03</div>
+            <span class="card-icon">🎯</span>
+            <h3>Decisões Rápidas e Eficazes</h3>
+            <p>Aprender a tomar decisões com velocidade e precisão. Eliminar os vieses que travam o raciocínio e a
+              cultura do "vamos ver".</p>
           </div>
-        </div>
-        <div class="facil-tags">
-          <span class="tag">Psicologia Positiva</span>
-          <span class="tag">Análise Comportamental</span>
-          <span class="tag">Coaching Executivo</span>
-          <span class="tag">Antifragilidade</span>
-          <span class="tag">Liderança Estratégica</span>
+          <div class="card">
+            <div class="card-num">04</div>
+            <span class="card-icon">🔥</span>
+            <h3>Resposta Antifrágil</h3>
+            <p>Converter toda crise em oportunidade — não como slogan, mas como sistema instalado de resposta a
+              adversidades.</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- 9. INVESTIMENTO -->
-<div class="slide" data-i="8">
-  <div class="sl">
-    <div class="lbar"></div>
-    <div class="ey">Investimento e Detalhes</div>
-    <div class="t1">Tudo o que você<br><em>precisa saber.</em></div>
-    <div class="invest-box">
-      <div class="invest-grid">
-        <div class="i-item">
-          <div class="i-label">💰 Investimento</div>
-          <div class="i-val">R$3.898</div>
-          <div class="i-desc">Verifique condições especiais</div>
-        </div>
-        <div class="i-item">
-          <div class="i-label">📅 Encontros</div>
-          <div class="i-val">5</div>
-          <div class="i-desc">Encontros presenciais</div>
-        </div>
-        <div class="i-item">
-          <div class="i-label">🕖 Horário</div>
-          <div class="i-val">19h–22h</div>
-          <div class="i-desc">3 horas por encontro</div>
+    <!-- 3. PARA QUEM -->
+    <div class="slide" data-i="2">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Para Quem é Esta Formação</div>
+        <div class="t1">Esta formação é ideal<br><em>para você se…</em></div>
+        <div class="who-list">
+          <div class="who-item">
+            <div class="who-dot"></div>
+            <div>
+              <h4>Você busca aprimorar suas habilidades de liderança</h4>
+              <p>Líderes que já entregam resultados e querem elevar o padrão — não começar do zero, mas ir para o
+                próximo nível.</p>
+            </div>
+          </div>
+          <div class="who-item">
+            <div class="who-dot"></div>
+            <div>
+              <h4>Você quer desenvolver uma equipe engajada e inovadora</h4>
+              <p>Chega de equipe que só executa quando você cobra. O objetivo é um time que pensa, propõe e resolve.</p>
+            </div>
+          </div>
+          <div class="who-item">
+            <div class="who-dot"></div>
+            <div>
+              <h4>Você quer fortalecer sua capacidade de lidar com crises</h4>
+              <p>Promover as mudanças necessárias no time — e em você — para que a adversidade vire combustível, não
+                paralisia.</p>
+            </div>
+          </div>
+          <div class="who-item">
+            <div class="who-dot"></div>
+            <div>
+              <h4>Você quer sair da operação e atuar estrategicamente</h4>
+              <p>Menos urgência, mais visão. Menos apagar incêndio, mais arquitetar o crescimento.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <p class="invest-obs">Próxima turma: a partir de 27/05 · Sala de Reuniões · Metropolitan Mall · Goiânia. Condições especiais para grupos e indicações.</p>
     </div>
+
+    <!-- 4. PILARES -->
+    <div class="slide" data-i="3">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Os Pilares</div>
+        <div class="t1">A base que sustenta<br><em>tudo o que vem depois.</em></div>
+        <div class="sub">Dois pilares fundamentais que estruturam toda a formação — do autoconhecimento ao conhecimento
+          do time.</div>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h3>Liderança de Verdade</h3>
+            <p>Aprenda os princípios e estratégias que constroem liderança com verdadeiro propósito e intencionalidade.
+              Não liderança de cargo — liderança que as pessoas seguem porque querem.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h3>Comportamento e Antifragilidade</h3>
+            <p>Entenda perfis comportamentais, identifique o temperamento e as camadas da personalidade de seus
+              liderados. Liderar pessoas diferentes com o método certo para cada uma.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. FERRAMENTAS -->
+    <div class="slide" data-i="4">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Ferramentas e Desenvolvimento</div>
+        <div class="t1">Método aplicado,<br><em>não teoria acumulada.</em></div>
+        <div class="sub">Cada ferramenta foi escolhida por impacto prático — não para enriquecer o currículo, mas para
+          mudar o dia a dia de quem lidera.</div>
+        <div class="tools">
+          <div class="tool">
+            <span class="tool-icon">🧠</span>
+            <h3>Ferramentas Psicológicas</h3>
+            <p>Aprimore seu desempenho e o do time com ferramentas baseadas em evidências. Comunicação que conecta, não
+              só informa.</p>
+            <div class="tags">
+              <span class="tag">PNL</span>
+              <span class="tag">Psicologia Positiva</span>
+              <span class="tag">Comunicação Assertiva</span>
+              <span class="tag">Princípio de Oz</span>
+            </div>
+          </div>
+          <div class="tool">
+            <span class="tool-icon">📈</span>
+            <h3>Desenvolvendo Líderes</h3>
+            <p>Aprenda a identificar necessidades individuais, direcionar o desenvolvimento com precisão e promover
+              motivação sustentável — não motivação de palco.</p>
+            <div class="tags">
+              <span class="tag">Diagnóstico de Equipe</span>
+              <span class="tag">Plano de Desenvolvimento</span>
+              <span class="tag">Motivação Sustentável</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ESTRATÉGIAS DE ADAPTAÇÃO -->
+    <div class="slide" data-i="5">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Estratégias de Adaptação</div>
+        <div class="t1">Como agir quando<br><em>o cenário muda.</em></div>
+        <div class="sub">A antifragilidade não é resiliência — não é só suportar o impacto. É sair mais forte. Para
+          isso, você precisa de um sistema, não de força de vontade.</div>
+        <div class="strat-list">
+          <div class="strat-item">
+            <div class="s-num">01</div>
+            <div>
+              <h4>Mensuração</h4>
+              <p>Ferramentas para mensurar o que realmente importa e tomar decisões com dados, não intuição não
+                treinada.</p>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="s-num">02</div>
+            <div>
+              <h4>Estratégias por Cenário</h4>
+              <p>Preparação de respostas estratégicas para diferentes cenários — antes da crise chegar, não durante.</p>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="s-num">03</div>
+            <div>
+              <h4>Recuperação e Crescimento</h4>
+              <p>Como converter a queda em aprendizado estruturado e o aprendizado em crescimento acelerado.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PLANEJAMENTO ANTIFRÁGIL -->
+    <div class="slide" data-i="6">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Planejamento Antifrágil</div>
+        <div class="t1">Do diagnóstico à<br><em>cultura instalada.</em></div>
+        <div class="sub">O objetivo final não é um líder mais preparado — é uma organização antifrágil. Isso exige um
+          ciclo completo de quatro etapas.</div>
+        <div class="strat-list">
+          <div class="strat-item">
+            <div class="s-num">01</div>
+            <div>
+              <h4>Diagnóstico</h4>
+              <p>Domine estratégias para diagnosticar com precisão onde está o desenvolvimento do time — e onde estão os
+                gargalos reais.</p>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="s-num">02</div>
+            <div>
+              <h4>Planejamento</h4>
+              <p>Planejar o desenvolvimento do time com método — não com achismo. Metas individuais e coletivas que
+                fazem sentido.</p>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="s-num">03</div>
+            <div>
+              <h4>Mensuração</h4>
+              <p>Mensurar o desenvolvimento de forma contínua. O que não é medido, não é gerenciado — e não evolui.</p>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="s-num">04</div>
+            <div>
+              <h4>Cultura Antifrágil</h4>
+              <p>Criar uma cultura de desenvolvimento contínuo que funciona independente da sua presença constante.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. FACILITADOR — LUIZ PORTAL -->
+    <div class="slide" data-i="7">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Sobre o Facilitador</div>
+        <div class="t1">Quem conduz<br><em>essa jornada.</em></div>
+        <div class="facilitator">
+          <div class="facil-photo-side">
+            <div class="facil-ring">
+              <img src="luiz perfil.jpeg" alt="Luiz Portal" class="facil-img">
+            </div>
+            <div class="facil-id">
+              <div class="facil-name">Luiz Portal</div>
+              <div class="facil-role">Especialista em Liderança Antifrágil</div>
+              <div class="facil-org">Cofundador · ViDi</div>
+            </div>
+          </div>
+          <div class="facil-bio-side">
+            <p class="facil-bio">
+              Luiz Portal é especialista em desenvolvimento de lideranças e comportamento humano, com mais de uma década
+              formando líderes em empresas de médio e grande porte no Brasil Central. Cofundador da ViDi, aplica
+              metodologias baseadas em evidências — unindo análise comportamental, psicologia positiva e antifragilidade
+              — para transformar a forma como líderes constroem equipes e respondem à adversidade. Sua missão é elevar o
+              padrão da liderança no Brasil Central, construindo organizações que não apenas sobrevivem às crises, mas
+              saem delas mais fortes.
+            </p>
+            <div class="facil-stats">
+              <div class="facil-stat">
+                <span class="fs-num">+10</span>
+                <span class="fs-label">Anos de experiência</span>
+              </div>
+              <div class="facil-stat">
+                <span class="fs-num">+200</span>
+                <span class="fs-label">Líderes formados</span>
+              </div>
+              <div class="facil-stat">
+                <span class="fs-num">+50</span>
+                <span class="fs-label">Empresas atendidas</span>
+              </div>
+            </div>
+            <div class="facil-tags">
+              <span class="tag">Psicologia Positiva</span>
+              <span class="tag">Análise Comportamental</span>
+              <span class="tag">Coaching Executivo</span>
+              <span class="tag">Antifragilidade</span>
+              <span class="tag">Liderança Estratégica</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. INVESTIMENTO -->
+    <div class="slide" data-i="8">
+      <div class="sl">
+        <div class="lbar"></div>
+        <div class="ey">Investimento e Detalhes</div>
+        <div class="t1">Tudo o que você<br><em>precisa saber.</em></div>
+        <div class="invest-box">
+          <div class="invest-grid">
+            <div class="i-item">
+              <div class="i-label">💰 Investimento</div>
+              <div class="i-val">R$3.898</div>
+              <div class="i-desc">Verifique condições especiais</div>
+            </div>
+            <div class="i-item">
+              <div class="i-label">📅 Encontros</div>
+              <div class="i-val">5</div>
+              <div class="i-desc">Encontros presenciais</div>
+            </div>
+            <div class="i-item">
+              <div class="i-label">🕖 Horário</div>
+              <div class="i-val">19h–22h</div>
+              <div class="i-desc">3 horas por encontro</div>
+            </div>
+          </div>
+          <p class="invest-obs">Próxima turma: a partir de 27/05 · Sala de Reuniões · Metropolitan Mall · Goiânia.
+            Condições especiais para grupos e indicações.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. CTA -->
+    <div class="slide slide-cta" data-i="9">
+      <div class="sl sl-cta">
+        <div class="ey" style="justify-content:center;">Próximo Passo</div>
+        <div class="cta-big">Pronto para liderar<br>de forma <em>antifrágil?</em></div>
+        <div class="cta-sub">Entre em contato agora. Verificamos as datas da próxima turma e as condições disponíveis
+          para você.</div>
+        <a href="https://wa.me/556292686018" class="cta-btn" target="_blank">
+          Falar pelo WhatsApp
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+        <div class="cta-detail">+55 62 9268-6018 · @vidi.ceo · vidiceo.com.br</div>
+      </div>
+    </div>
+
+  </div><!-- /deck -->
+
+  <div class="prog" id="prog"></div>
+  <div class="dots" id="dots"></div>
+  <div class="arrows">
+    <button class="abtn" id="pb" onclick="nav(-1)" disabled>←</button>
+    <button class="abtn" id="nb" onclick="nav(1)">→</button>
   </div>
-</div>
+  <div class="hint">← → para navegar · F para tela cheia · ☀/🌙 para tema</div>
 
-<!-- 10. CTA -->
-<div class="slide slide-cta" data-i="9">
-  <div class="sl sl-cta">
-    <div class="ey" style="justify-content:center;">Próximo Passo</div>
-    <div class="cta-big">Pronto para liderar<br>de forma <em>antifrágil?</em></div>
-    <div class="cta-sub">Entre em contato agora. Verificamos as datas da próxima turma e as condições disponíveis para você.</div>
-    <a href="https://wa.me/556292686018" class="cta-btn" target="_blank">
-      Falar pelo WhatsApp
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <div class="cta-detail">+55 62 9268-6018 · @vidi.ceo · vidiceo.com.br</div>
-  </div>
-</div>
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let cur = 0;
 
-</div><!-- /deck -->
+    document.getElementById('tot').textContent = total;
 
-<div class="prog" id="prog"></div>
-<div class="dots" id="dots"></div>
-<div class="arrows">
-  <button class="abtn" id="pb" onclick="nav(-1)" disabled>←</button>
-  <button class="abtn" id="nb" onclick="nav(1)">→</button>
-</div>
-<div class="hint">← → para navegar · F para tela cheia · ☀/🌙 para tema</div>
+    // Build dots
+    const dotsEl = document.getElementById('dots');
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => go(i);
+      dotsEl.appendChild(d);
+    });
 
-<script>
-const slides = document.querySelectorAll('.slide');
-const total = slides.length;
-let cur = 0;
+    function go(n) {
+      if (n < 0 || n >= total) return;
+      slides[n].scrollIntoView({ behavior: 'smooth' });
+    }
 
-document.getElementById('tot').textContent = total;
+    function nav(d) {
+      const next = cur + d;
+      if (next >= 0 && next < total) go(next);
+    }
 
-// Build dots
-const dotsEl = document.getElementById('dots');
-slides.forEach((_, i) => {
-  const d = document.createElement('div');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.onclick = () => go(i);
-  dotsEl.appendChild(d);
-});
+    function upd(index) {
+      cur = index;
+      document.getElementById('cur').textContent = cur + 1;
+      document.getElementById('pb').disabled = cur === 0;
+      document.getElementById('nb').disabled = cur === total - 1;
+      document.getElementById('prog').style.width = ((cur + 1) / total * 100) + '%';
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
 
-function go(n) {
-  if (n < 0 || n >= total) return;
-  slides[cur].classList.remove('active');
-  slides[cur].classList.add('exit');
-  const prev = cur;
-  setTimeout(() => slides[prev].classList.remove('exit'), 600);
-  cur = n;
-  slides[cur].classList.add('active');
-  upd();
-}
+    // Scroll Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(slides).indexOf(entry.target);
+          upd(index);
+        }
+      });
+    }, { threshold: 0.5 });
 
-function nav(d) { go(cur + d); }
+    slides.forEach(slide => observer.observe(slide));
 
-function upd() {
-  document.getElementById('cur').textContent = cur + 1;
-  document.getElementById('pb').disabled = cur === 0;
-  document.getElementById('nb').disabled = cur === total - 1;
-  document.getElementById('prog').style.width = ((cur + 1) / total * 100) + '%';
-  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
-}
+    // Theme toggle
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        document.getElementById('themeBtn').textContent = '🌙';
+        localStorage.setItem('vidi-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeBtn').textContent = '☀️';
+        localStorage.setItem('vidi-theme', 'dark');
+      }
+    }
 
-// Theme toggle — light is default (no attribute), dark = data-theme="dark"
-function toggleTheme() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  if (isDark) {
-    document.documentElement.removeAttribute('data-theme');
-    document.getElementById('themeBtn').textContent = '🌙';
-    localStorage.setItem('vidi-theme', 'light');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('themeBtn').textContent = '☀️';
-    localStorage.setItem('vidi-theme', 'dark');
-  }
-}
+    // Restore saved theme
+    (function () {
+      const saved = localStorage.getItem('vidi-theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeBtn').textContent = '☀️';
+      }
+    })();
 
-// Restore saved theme on load
-(function () {
-  const saved = localStorage.getItem('vidi-theme');
-  if (saved === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('themeBtn').textContent = '☀️';
-  }
-})();
-
-// Keyboard navigation
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nav(1); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); nav(-1); }
-  if (e.key === 'f' || e.key === 'F') {
-    !document.fullscreenElement
-      ? document.documentElement.requestFullscreen()
-      : document.exitFullscreen();
-  }
-  if (e.key === 't' || e.key === 'T') { toggleTheme(); }
-});
-
-// Touch swipe
-let sx = 0;
-document.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
-document.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - sx;
-  if (Math.abs(dx) > 50) nav(dx < 0 ? 1 : -1);
-}, { passive: true });
-
-upd();
-</script>
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        nav(1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        nav(-1);
+      }
+      if (e.key === 'f' || e.key === 'F') {
+        !document.fullscreenElement
+          ? document.documentElement.requestFullscreen()
+          : document.exitFullscreen();
+      }
+      if (e.key === 't' || e.key === 'T') { toggleTheme(); }
+    });
+  </script>
 </body>
+
 </html>
