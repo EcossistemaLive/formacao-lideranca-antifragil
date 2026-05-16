@@ -249,19 +249,25 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* ══ COVER ══ */
 .slide-cover{
   align-items:flex-start;
-  background:
-    url('imagem de fundo cavaleiro.png') no-repeat right center / auto 100%,
-    var(--bg);
+  background:var(--bg);
   position:relative;
 }
+
+/* Imagem do cavaleiro — preenche o lado direito com fade via CSS mask */
 .slide-cover::before{
-  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 80% at 30% 50%,rgba(var(--bg-rgb),.98) 0%,rgba(var(--bg-rgb),.82) 55%,rgba(var(--bg-rgb),.35) 100%),
-    linear-gradient(to right,rgba(var(--bg-rgb),.99) 45%,rgba(var(--bg-rgb),.5) 100%);
-  transition:background .4s;
+  content:'';position:absolute;right:0;top:0;width:68%;height:100%;z-index:0;
+  background:url('imagem de fundo cavaleiro.png') no-repeat right center / cover;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.55) 22%,rgba(0,0,0,.9) 50%,black 75%);
+  mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.55) 22%,rgba(0,0,0,.9) 50%,black 75%);
 }
-.sl-cover{max-width:680px;position:relative;z-index:1;}
+
+/* Gradiente sobre a imagem para garantir legibilidade do texto */
+.slide-cover::after{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to right,var(--bg) 36%,rgba(var(--bg-rgb),.6) 56%,rgba(var(--bg-rgb),0) 74%);
+}
+
+.sl-cover{max-width:680px;position:relative;z-index:2;}
 .cover-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:50px;
   background:var(--gold-dim);border:1px solid var(--gold-border);
   font-size:.56rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;color:var(--gold);
